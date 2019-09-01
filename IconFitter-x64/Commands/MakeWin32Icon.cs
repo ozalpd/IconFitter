@@ -29,7 +29,7 @@ namespace IconFitter64.Commands
                 }
 
 
-                image.Settings.SetDefine(MagickFormat.Icon, "auto-resize", "256,128,64,48,32,16");
+                image.Settings.SetDefine(MagickFormat.Icon, "auto-resize", "256,192,128,96,64,48,32,24,16");
                 image.Write(ViewModel.TargetFileName);
             }
 

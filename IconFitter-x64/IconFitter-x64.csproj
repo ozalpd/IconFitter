@@ -37,6 +37,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ArtAssets\App-Icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Magick.NET-Q16-x64, Version=7.14.3.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=AMD64">
       <HintPath>..\packages\Magick.NET-Q16-x64.7.14.3\lib\net40\Magick.NET-Q16-x64.dll</HintPath>
@@ -106,12 +109,30 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="ArtAssets\App-Icon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IconLib\IconLib.csproj">
       <Project>{c69c11a8-bfff-4026-ab67-d16320c277c1}</Project>
       <Name>IconLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ArtAssets\App-Icon-256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ArtAssets\App-Icon-128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ArtAssets\App-Icon-16.png" />
+    <Resource Include="ArtAssets\App-Icon-24.png" />
+    <Resource Include="ArtAssets\App-Icon-32.png" />
+    <Resource Include="ArtAssets\App-Icon-48.png" />
+    <Resource Include="ArtAssets\App-Icon-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ArtAssets\App-Icon-24x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Magick.NET-Q16-x64.7.14.3\build\net40\Magick.NET-Q16-x64.targets" Condition="Exists('..\packages\Magick.NET-Q16-x64.7.14.3\build\net40\Magick.NET-Q16-x64.targets')" />
