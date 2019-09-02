@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Reflection;
 
 namespace IconFitter64
 {
@@ -27,12 +28,29 @@ namespace IconFitter64
         public MainWindow()
         {
             InitializeComponent();
+
+            string appDir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            settingsFile = System.IO.Path.Combine(appDir, "IconFitter.json");
+
+            if (File.Exists(settingsFile))
+            {
+                _settings = AppSettings.OpenFromFile(settingsFile);
+                _settings.MainWindowPosition.SetWindowPositions(this);
+            }
+            else
+            {
+                _settings = new AppSettings();
+            }
+
         }
+        private AppSettings _settings;
+        private string settingsFile;
 
         public MainWindow(string startupFile) : this()
         {
             StartupFile = startupFile;
         }
+
 
         public string StartupFile { get; private set; }
         public IconFitterVM ViewModel { get { return (IconFitterVM)DataContext; } }
@@ -44,6 +62,12 @@ namespace IconFitter64
             {
                 ViewModel.ImageFile = new ImageFileInfo(StartupFile);
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _settings.MainWindowPosition.GetWindowPositions(this);
+            _settings.SaveToFile(settingsFile);
         }
     }
 }

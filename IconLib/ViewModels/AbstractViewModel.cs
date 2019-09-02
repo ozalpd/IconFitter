@@ -6,7 +6,7 @@ using System.IO;
 
 namespace IconLib.ViewModels
 {
-    public class AbstractViewModel : INotifyPropertyChanged
+    public abstract class AbstractViewModel : INotifyPropertyChanged
     {
         //default thumb width or height
         private const int defaultThumbSize = 128;

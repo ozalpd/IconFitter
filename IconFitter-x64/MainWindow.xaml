@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:IconFitter64"
         xmlns:vm="clr-namespace:IconFitter64.ViewModels"
         mc:Ignorable="d"
-        Title="Icon Fitter" Height="600" Width="800" MinHeight="320" MinWidth="640" Loaded="Window_Loaded" Icon="ArtAssets/App-Icon-32.png">
+        Title="Icon Fitter" Height="600" Width="800" MinHeight="320" MinWidth="640" Loaded="Window_Loaded" Icon="ArtAssets/App-Icon-32.png" Closing="Window_Closing">
     <Window.DataContext>
         <vm:IconFitterVM />
     </Window.DataContext>
