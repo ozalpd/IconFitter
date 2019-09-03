@@ -69,5 +69,10 @@ namespace IconFitter64
             _settings.MainWindowPosition.GetWindowPositions(this);
             _settings.SaveToFile(settingsFile);
         }
+
+        private void BtnSetHeightToWidth_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.TargetHeight = ViewModel.TargetWidth;
+        }
     }
 }
