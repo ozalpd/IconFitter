@@ -23,7 +23,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="96"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="96"/>
             <ColumnDefinition Width="96"/>
             <ColumnDefinition Width="*"/>
@@ -34,7 +34,30 @@
             <RowDefinition Height="32"/>
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
-        <Image Grid.ColumnSpan="6" Source="{Binding ImageFile.BitmapImage, Mode=OneWay}"/>
+
+        <Grid Grid.ColumnSpan="4" Background="#686868">
+            <Grid>
+                <Grid.Background>
+                    <DrawingBrush Viewport="0,0,30,30" ViewportUnits="Absolute" TileMode="Tile">
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <DrawingGroup.Children>
+                                    <GeometryDrawing Brush="#b8b8b8">
+                                        <GeometryDrawing.Geometry>
+                                            <GeometryGroup>
+                                                <RectangleGeometry Rect="50,25,25,25" />
+                                                <RectangleGeometry Rect="25,50,25,25" />
+                                            </GeometryGroup>
+                                        </GeometryDrawing.Geometry>
+                                    </GeometryDrawing>
+                                </DrawingGroup.Children>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Grid.Background>
+                <Image Source="{Binding ImageFile.BitmapImage, Mode=OneWay}" StretchDirection="DownOnly"/>
+            </Grid>
+        </Grid>
 
         <Button Grid.Column="0" Grid.Row="1" Content="Open Image" Margin="4,4" Command="{Binding OpenCommand}"/>
         <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource inHorizStack}" Text="{Binding ImageFile.Size, Mode=OneWay, StringFormat=Size: \{0\}}"/>
@@ -60,8 +83,8 @@
             <TextBlock Grid.Column="0" Style="{StaticResource inHorizStack}" Text="Target Width:" ToolTip="Target Width"/>
             <TextBox Grid.Column="1" Style="{StaticResource inHorizTextBox}" Text="{Binding TargetWidth}" TextAlignment="Right"/>
 
-            <Button x:Name="btnSetHeightToWidth" Grid.Column="2" Margin="8,8,8,4" Content="=>" ToolTip="Set Target Height to Target Width" Click="BtnSetHeightToWidth_Click"/>
-            
+            <Button x:Name="btnSetHeightToWidth" Grid.Column="2" Margin="0,0,8,0" Content="→" ToolTip="Set Target Height to Target Width" Click="BtnSetHeightToWidth_Click" FontSize="16"/>
+
             <TextBlock Grid.Column="3" Style="{StaticResource inHorizStack}" Text="Height:" ToolTip="Target Height"/>
             <TextBox Grid.Column="4" Style="{StaticResource inHorizTextBox}" Text="{Binding TargetHeight}" TextAlignment="Right"/>
 

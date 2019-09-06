@@ -48,6 +48,8 @@ namespace IconFitter64.Commands
                     image.Crop(ViewModel.TargetWidth, ViewModel.TargetHeight, Gravity.Center);
                 }
 
+                //TODO: add ResultImageSource property to IconFitterVM
+                //ViewModel.ResultImageSource = image.ToBitmapSource();
                 image.Write(ViewModel.TargetResizeFileName);
             }
 
