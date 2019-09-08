@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Icon Fitter" Icon="ArtAssets\App-Icon.ico"
         Height="600" Width="800" MinHeight="320" MinWidth="640"
-        Loaded="Window_Loaded" Closing="Window_Closing">
+        Loaded="Window_Loaded" Closing="Window_Closing" SizeChanged="Window_SizeChanged">
     <Window.DataContext>
         <vm:IconFitterVM />
     </Window.DataContext>

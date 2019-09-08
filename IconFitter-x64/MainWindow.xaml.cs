@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Reflection;
 using System;
+using System.Windows.Threading;
 
 namespace IconFitter
 {
@@ -33,7 +34,7 @@ namespace IconFitter
         }
         private AppSettings _settings;
         private string settingsFile;
-
+        private bool imgAutoZoomed = false;
         public MainWindow(string startupFile) : this()
         {
             StartupFile = startupFile;
@@ -49,20 +50,10 @@ namespace IconFitter
         {
             if (e.PropertyName.Equals("ImageFile"))
             {
-                if (ImageFile == null)
-                    return;
-
-                double horzRate = (ImageViewScroll.ViewportWidth - 1) / (double)ImageFile.Width;
-                double vertRate = (ImageViewScroll.ViewportHeight - 1) / (double)ImageFile.Height;
-                double zoomFact = vertRate < horzRate ? vertRate : horzRate;
-
-                if (zoomFact < 1.0)
-                {
-                    ViewModel.Zoom = Math.Floor(zoomFact * 10000.0) / 100.0;
-                }
+                FitImageToViewport();
+                imgAutoZoomed = true; //TODO: set this false when zoom changed by user
             }
         }
-
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -81,6 +72,47 @@ namespace IconFitter
         private void BtnSetHeightToWidth_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.TargetHeight = ViewModel.TargetWidth;
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (imgAutoZoomed && !resizing)
+            {
+                var timer = new DispatcherTimer()
+                {
+                    Interval = new TimeSpan(0, 0, 0, 0, 250)
+                };
+
+                timer.Tick += (o, args) =>
+                {
+                    FitImageToViewport();
+                    timer.Stop();
+                    resizing = false;
+                };
+                timer.Start();
+                resizing = true;
+            }
+        }
+        private bool resizing = false;
+
+
+        private void FitImageToViewport()
+        {
+            if (ImageFile == null)
+                return;
+
+            double horzRate = (ImageViewScroll.ViewportWidth - 1) / (double)ImageFile.Width;
+            double vertRate = (ImageViewScroll.ViewportHeight - 1) / (double)ImageFile.Height;
+            double zoomFact = vertRate < horzRate ? vertRate : horzRate;
+
+            if (zoomFact < 1.0)
+            {
+                ViewModel.Zoom = Math.Floor(zoomFact * 1000.0) / 10.0;
+            }
+            else if (ViewModel.Zoom < 100.0)
+            {
+                ViewModel.Zoom = 100.0;
+            }
         }
     }
 }
