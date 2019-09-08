@@ -3,6 +3,7 @@ using IconLib.ViewModels;
 using System.IO;
 using System.Windows;
 using System.Reflection;
+using System;
 
 namespace IconFitter
 {
@@ -28,6 +29,7 @@ namespace IconFitter
                 _settings = new AppSettings();
             }
 
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
         }
         private AppSettings _settings;
         private string settingsFile;
@@ -40,6 +42,26 @@ namespace IconFitter
 
         public string StartupFile { get; private set; }
         public IconFitterVM ViewModel { get { return (IconFitterVM)DataContext; } }
+        public ImageFileInfo ImageFile { get { return ViewModel.ImageFile; } }
+
+
+        private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("ImageFile"))
+            {
+                if (ImageFile == null)
+                    return;
+
+                double horzRate = (ImageViewScroll.ViewportWidth - 1) / (double)ImageFile.Width;
+                double vertRate = (ImageViewScroll.ViewportHeight - 1) / (double)ImageFile.Height;
+                double zoomFact = vertRate < horzRate ? vertRate : horzRate;
+
+                if (zoomFact < 1.0)
+                {
+                    ViewModel.Zoom = Math.Floor(zoomFact * 10000.0) / 100.0;
+                }
+            }
+        }
 
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

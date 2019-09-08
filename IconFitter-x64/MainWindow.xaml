@@ -35,8 +35,8 @@
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.ColumnSpan="4" Margin="2,0" Background="#686868" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Grid Width="{Binding ImageFile.Width}" Height="{Binding ImageFile.Height}">
+        <ScrollViewer x:Name="ImageViewScroll" Grid.ColumnSpan="4" Margin="2,0" Background="#686868" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid Width="{Binding ImageViewSize.Width}" Height="{Binding ImageViewSize.Height}">
                 <Grid.Background>
                     <DrawingBrush Viewport="0,0,30,30" ViewportUnits="Absolute" TileMode="Tile">
                         <DrawingBrush.Drawing>
@@ -55,7 +55,7 @@
                         </DrawingBrush.Drawing>
                     </DrawingBrush>
                 </Grid.Background>
-                <Image Source="{Binding ImageFile.BitmapSource, Mode=OneWay}" StretchDirection="DownOnly"/>
+                <Image Source="{Binding ImageFile.BitmapSource, Mode=OneWay}"/>
             </Grid>
         </ScrollViewer>
 
@@ -94,6 +94,8 @@
             <TextBlock Grid.Column="7" Style="{StaticResource inHorizStack}" Text="Extension:" ToolTip="Target Extension"/>
             <TextBox Grid.Column="8" Style="{StaticResource inHorizTextBox}" Text="{Binding TargetExtension}"/>
         </Grid>
+
+        <TextBox Grid.Column="4" Grid.Row="2" Style="{StaticResource inHorizTextBox}" Text="{Binding Zoom}"/>
 
         <!--Resize Image Ends-->
         <Grid Grid.Column="1" Grid.Row="3">

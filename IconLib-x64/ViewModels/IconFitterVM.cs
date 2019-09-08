@@ -3,14 +3,18 @@ using IconLib.Commands;
 using System.IO;
 using System;
 using IconLib.Models;
+using System.Drawing;
 
 namespace IconLib.ViewModels
 {
     public partial class IconFitterVM
     {
-        //default thumb width or height
-        private const int defaultThumbSize = 128;
+
         private const int defaultJpegQuality = 90;
+        private const int defaultResizeSize = 128; //default width or height for ResizeCommand
+        private const double defaultZoom = 100;
+        private const double minZoom = 0.1;
+        private const double maxZoom = 10000.0;
 
 
         public ImageFileInfo ImageFile
@@ -26,6 +30,7 @@ namespace IconLib.ViewModels
                     _targetExtension = string.Empty;
 
                 _imageFile = value;
+                ResetZoom();
                 RaisePropertyChanged("ImageFile");
 
                 if (string.IsNullOrEmpty(TargetExtension))
@@ -183,7 +188,7 @@ namespace IconLib.ViewModels
 
         public int TargetHeight
         {
-            get { return _targetHeight ?? defaultThumbSize; }
+            get { return _targetHeight ?? defaultResizeSize; }
             set
             {
                 _targetHeight = value;
@@ -194,7 +199,7 @@ namespace IconLib.ViewModels
 
         public int TargetWidth
         {
-            get { return _targetWidth ?? defaultThumbSize; }
+            get { return _targetWidth ?? defaultResizeSize; }
             set
             {
                 _targetWidth = value;
@@ -206,8 +211,39 @@ namespace IconLib.ViewModels
 
 
 
+        public double Zoom
+        {
+            get { return _zoom ?? defaultZoom; }
+            set
+            {
+                if (_zoom == value)
+                    return;
+
+                _zoom = value < minZoom ? minZoom
+                      : value > maxZoom ? maxZoom
+                      : value;
+                RaisePropertyChanged("Zoom");
+                RaisePropertyChanged("ZoomFactor");
+                RaisePropertyChanged("ImageViewSize");
+            }
+        }
+        private double? _zoom;
+        public double ZoomFactor { get { return Zoom / 100.0; } }
+        public Size ImageViewSize
+        {
+            get
+            {
+                return ImageFile != null
+                            ? new Size((int)Math.Ceiling(ImageFile.Width * ZoomFactor), (int)Math.Ceiling(ImageFile.Height * ZoomFactor))
+                            : new Size(0, 0);
+            }
+        }
 
 
-
+        public void ResetZoom()
+        {
+            _zoom = null;
+            Zoom = defaultZoom;
+        }
     }
 }
