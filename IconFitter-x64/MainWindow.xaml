@@ -35,8 +35,8 @@
             <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.ColumnSpan="4" Background="#686868">
-            <Grid>
+        <ScrollViewer Grid.ColumnSpan="4" Margin="2,0" Background="#686868" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid Width="{Binding ImageFile.Width}" Height="{Binding ImageFile.Height}">
                 <Grid.Background>
                     <DrawingBrush Viewport="0,0,30,30" ViewportUnits="Absolute" TileMode="Tile">
                         <DrawingBrush.Drawing>
@@ -57,7 +57,7 @@
                 </Grid.Background>
                 <Image Source="{Binding ImageFile.BitmapSource, Mode=OneWay}" StretchDirection="DownOnly"/>
             </Grid>
-        </Grid>
+        </ScrollViewer>
 
         <Button Grid.Column="0" Grid.Row="1" Content="Open Image" Margin="4,4" Command="{Binding OpenCommand}"/>
         <TextBlock Grid.Column="1" Grid.Row="1" Style="{StaticResource inHorizStack}" Text="{Binding ImageFile.Size, Mode=OneWay, StringFormat=Size: \{0\}}"/>

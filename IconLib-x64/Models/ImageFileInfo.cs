@@ -20,21 +20,7 @@ namespace IconLib.Models
 
 
 
-        //public BitmapImage BitmapImage
-        //{
-        //    get
-        //    {
-        //        if (bitmapImage == null)
-        //        {
-        //            bitmapImage = new BitmapImage();
-        //            bitmapImage.BeginInit();
-        //            bitmapImage.StreamSource = fileInfo.OpenRead();
-        //            bitmapImage.EndInit();
-        //        }
-        //        return bitmapImage;
-        //    }
-        //}
-        //private BitmapImage bitmapImage;
+        
 
         public BitmapSource BitmapSource
         {
@@ -42,7 +28,7 @@ namespace IconLib.Models
             {
                 if (_bitmapSource == null)
                 {
-                    using (var image = new MagickImage(FullName))
+                    using (var image = new MagickImage(fileInfo))
                     {
                         _bitmapSource = image.ToBitmapSource();
                     }
