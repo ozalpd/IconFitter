@@ -1,8 +1,8 @@
 ﻿using ImageMagick;
-using IconFitter64.ViewModels;
+using IconLib.ViewModels;
 using System;
 
-namespace IconFitter64.Commands
+namespace IconLib.Commands
 {
     public class MakeWin32Icon : OptimizeTargetCommand
     {

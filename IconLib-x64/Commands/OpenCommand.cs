@@ -6,12 +6,12 @@ namespace IconLib.Commands
 {
     public class OpenCommand : AbstractCommand
     {
-        public OpenCommand(AbstractViewModel viewModel) : base(viewModel) { }
+        public OpenCommand(IconFitterVM viewModel) : base(viewModel) { }
 
         public override void Execute(object parameter)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+            openFileDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png;*.psd|" +
                                     "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
                                     "Portable Network Graphic (*.png)|*.png";
 

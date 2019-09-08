@@ -1,10 +1,11 @@
 ﻿using IconLib.Commands;
 using ImageMagick;
-using IconFitter64.ViewModels;
+using IconLib.ViewModels;
 using System;
 using System.IO;
+using System.Linq;
 
-namespace IconFitter64.Commands
+namespace IconLib.Commands
 {
     public class OptimizeTargetCommand : AbstractImageCommand
     {
@@ -12,20 +13,30 @@ namespace IconFitter64.Commands
 
         public new IconFitterVM ViewModel { get => (IconFitterVM)base.ViewModel; }
 
+        public override bool CanExecute(object parameter)
+        {
+            return ImageFile != null && ImageFile.Exists && IsSupported(ImageFile.Extension);
+        }
+
+
         public override void Execute(object parameter)
         {
 
             DateTime startTime = DateTime.Now;
             bool setElapsedTime = false;
-            string targetFile;
             if (parameter is string && File.Exists((string)parameter))
             {
                 targetFile = (string)parameter;
+                if (!IsSupported())
+                    return;
             }
             else if (!File.Exists(ViewModel.TargetFileName))
             {
-                ViewModel.CreateTargetDirectory();
+                if (!IsSupported(ViewModel.TargetExtension))
+                    return;
+
                 targetFile = ViewModel.TargetFileName;
+                ViewModel.CreateTargetDirectory();
                 setElapsedTime = true;
                 if (ImageFile.Extension.Equals(ViewModel.TargetExtension, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -42,6 +53,9 @@ namespace IconFitter64.Commands
             }
             else
             {
+                if (!IsSupported(ViewModel.TargetExtension))
+                    return;
+
                 targetFile = ViewModel.TargetFileName;
                 setElapsedTime = true;
             }
@@ -55,5 +69,26 @@ namespace IconFitter64.Commands
             if (setElapsedTime)
                 ViewModel.ElapsedTime = DateTime.Now.Subtract(startTime);
         }
+        private string targetFile;
+
+
+
+        private bool IsSupported()
+        {
+            return IsSupported(Path.GetExtension(targetFile));
+        }
+
+        private bool IsSupported(string extension)
+        {
+            return supportedExts.Contains(extension.ToLowerInvariant());
+        }
+
+        private string[] supportedExts = new string[4]
+        {
+            ".jpeg",
+            ".jpg",
+            ".png",
+            ".ico"
+        };
     }
 }

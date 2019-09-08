@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageMagick;
+using System;
 using System.IO;
 using System.Security;
 using System.Windows.Media.Imaging;
@@ -19,21 +20,38 @@ namespace IconLib.Models
 
 
 
-        public BitmapImage BitmapImage
+        //public BitmapImage BitmapImage
+        //{
+        //    get
+        //    {
+        //        if (bitmapImage == null)
+        //        {
+        //            bitmapImage = new BitmapImage();
+        //            bitmapImage.BeginInit();
+        //            bitmapImage.StreamSource = fileInfo.OpenRead();
+        //            bitmapImage.EndInit();
+        //        }
+        //        return bitmapImage;
+        //    }
+        //}
+        //private BitmapImage bitmapImage;
+
+        public BitmapSource BitmapSource
         {
             get
             {
-                if (bitmapImage == null)
+                if (_bitmapSource == null)
                 {
-                    bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.StreamSource = fileInfo.OpenRead();
-                    bitmapImage.EndInit();
+                    using (var image = new MagickImage(FullName))
+                    {
+                        _bitmapSource = image.ToBitmapSource();
+                    }
                 }
-                return bitmapImage;
+                return _bitmapSource;
             }
         }
-        private BitmapImage bitmapImage;
+        private BitmapSource _bitmapSource;
+
 
         /// <summary>Gets a string representing the directory's full path.</summary>
         /// <returns>A string representing the directory's full path.</returns>
@@ -60,12 +78,12 @@ namespace IconLib.Models
         /// <summary>
         /// The image height
         /// </summary>
-        public int Height { get { return BitmapImage.PixelHeight; } }
+        public int Height { get { return BitmapSource.PixelHeight; } }
 
         /// <summary>
         /// The image width.
         /// </summary>
-        public int Width { get { return BitmapImage.PixelWidth; } }
+        public int Width { get { return BitmapSource.PixelWidth; } }
 
         /// <summary>Gets the size, in bytes, of the current image file.</summary>
         /// <returns>The size of the current image file in bytes.</returns>

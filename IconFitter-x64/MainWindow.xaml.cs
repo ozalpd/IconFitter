@@ -1,6 +1,6 @@
 ﻿using IconLib.Models;
 using ImageMagick;
-using IconFitter64.ViewModels;
+using IconLib.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Reflection;
 
-namespace IconFitter64
+namespace IconFitter
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

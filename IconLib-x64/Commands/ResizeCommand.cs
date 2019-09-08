@@ -1,12 +1,17 @@
 ﻿using System;
 using ImageMagick;
-using IconFitter64.ViewModels;
+using IconLib.ViewModels;
 
-namespace IconFitter64.Commands
+namespace IconLib.Commands
 {
     public class ResizeCommand : OptimizeTargetCommand
     {
         public ResizeCommand(IconFitterVM viewModel) : base(viewModel) { }
+
+        public override bool CanExecute(object parameter)
+        {
+            return ImageFile != null && ImageFile.Exists;
+        }
 
         public override void Execute(object parameter)
         {
@@ -39,7 +44,9 @@ namespace IconFitter64.Commands
 
                 image.Quality = ViewModel.TargetQuality;
                 //image.Settings.Compression = CompressionMethod.LosslessJPEG;
-                image.Strip();
+                if (ViewModel.OptimizeTarget)
+                    image.Strip();
+
                 image.FilterType = FilterType.Lanczos2Sharp; //this seems better to me in some downsampled images - ozalp 2019.08.31
                 image.Resize(size);
 

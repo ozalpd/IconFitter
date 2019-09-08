@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IconFitter64.Properties
+namespace IconFitter.Properties
 {
 
 

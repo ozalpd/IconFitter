@@ -1,29 +1,23 @@
-﻿using IconLib.ViewModels;
-using IconFitter64.Commands;
+﻿using IconLib.Commands;
+using IconLib.Models;
+using System;
+using System.ComponentModel;
 using System.IO;
 
-namespace IconFitter64.ViewModels
+namespace IconLib.ViewModels
 {
-    public class IconFitterVM : AbstractViewModel
+    public partial class IconFitterVM : INotifyPropertyChanged
     {
-        public bool OptimizeTarget
+        public TimeSpan? ElapsedTime
         {
-            get
-            {
-                if (_optimizeTarget == null)
-                    _optimizeTarget = true;
-                return _optimizeTarget.Value;
-            }
+            get { return _elapsedTime; }
             set
             {
-                if (_optimizeTarget != value)
-                {
-                    _optimizeTarget = value;
-                    RaisePropertyChanged("OptimizeTarget");
-                }
+                _elapsedTime = value;
+                RaisePropertyChanged("ElapsedTime");
             }
         }
-        private bool? _optimizeTarget;
+        private TimeSpan? _elapsedTime;
 
 
         public MakeWin32Icon MakeWin32Icon
@@ -37,6 +31,16 @@ namespace IconFitter64.ViewModels
         }
         private MakeWin32Icon _makeWin32icon;
 
+        public OpenCommand OpenCommand
+        {
+            get
+            {
+                if (_openCommand == null)
+                    _openCommand = new OpenCommand(this);
+                return _openCommand;
+            }
+        }
+        private OpenCommand _openCommand;
 
         public OptimizeTargetCommand OptimizeTargetImage
         {
@@ -63,9 +67,13 @@ namespace IconFitter64.ViewModels
 
 
 
-        public override string GetTargetDirectory()
+        protected virtual void RaisePropertyChanged(string propertyName)
         {
-            return Path.Combine(base.GetTargetDirectory(), "IconFitter");
+            if (!string.IsNullOrEmpty(propertyName) && PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -6,7 +6,7 @@ namespace IconLib.Commands
 {
     public abstract class AbstractImageCommand : AbstractCommand
     {
-        public AbstractImageCommand(AbstractViewModel viewModel) : base(viewModel)
+        public AbstractImageCommand(IconFitterVM viewModel) : base(viewModel)
         {
             viewModel.PropertyChanged += OnViewModelPropertyChanged;
         }

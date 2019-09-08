@@ -6,11 +6,11 @@ namespace IconLib.Commands
 {
     public abstract class AbstractCommand : ICommand
     {
-        public AbstractCommand(AbstractViewModel viewModel)
+        public AbstractCommand(IconFitterVM viewModel)
         {
             ViewModel = viewModel;
         }
-        public AbstractViewModel ViewModel { get; private set; }
+        public IconFitterVM ViewModel { get; private set; }
 
         public abstract void Execute(object parameter);
 

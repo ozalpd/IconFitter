@@ -1,12 +1,12 @@
-﻿using IconLib.Commands;
-using IconLib.Models;
-using System;
-using System.ComponentModel;
+﻿using IconLib.ViewModels;
+using IconLib.Commands;
 using System.IO;
+using System;
+using IconLib.Models;
 
 namespace IconLib.ViewModels
 {
-    public abstract class AbstractViewModel : INotifyPropertyChanged
+    public partial class IconFitterVM
     {
         //default thumb width or height
         private const int defaultThumbSize = 128;
@@ -54,6 +54,27 @@ namespace IconLib.ViewModels
             }
         }
         private bool? _keepAspectRatio;
+
+
+        public bool OptimizeTarget
+        {
+            get
+            {
+                if (_optimizeTarget == null)
+                    _optimizeTarget = true;
+                return _optimizeTarget.Value;
+            }
+            set
+            {
+                if (_optimizeTarget != value)
+                {
+                    _optimizeTarget = value;
+                    RaisePropertyChanged("OptimizeTarget");
+                }
+            }
+        }
+        private bool? _optimizeTarget;
+
 
 
         public string TargetExtension
@@ -116,9 +137,9 @@ namespace IconLib.ViewModels
         /// Gets a default TargetDirectory
         /// </summary>
         /// <returns></returns>
-        public virtual string GetTargetDirectory()
+        public string GetTargetDirectory()
         {
-            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "IconFitter");
         }
 
         public string TargetResizeFileName
@@ -183,41 +204,10 @@ namespace IconLib.ViewModels
         private int? _targetWidth;
 
 
-        public TimeSpan? ElapsedTime
-        {
-            get { return _elapsedTime; }
-            set
-            {
-                _elapsedTime = value;
-                RaisePropertyChanged("ElapsedTime");
-            }
-        }
-        private TimeSpan? _elapsedTime;
-
-        public OpenCommand OpenCommand
-        {
-            get
-            {
-                if (_openCommand == null)
-                    _openCommand = GetOpenCommand();
-                return _openCommand;
-            }
-        }
-        private OpenCommand _openCommand;
-
-        protected virtual OpenCommand GetOpenCommand()
-        {
-            return new OpenCommand(this);
-        }
 
 
-        protected virtual void RaisePropertyChanged(string propertyName)
-        {
-            if (!string.IsNullOrEmpty(propertyName) && PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
+
+
+
     }
 }
