@@ -13,24 +13,39 @@
         <vm:IconFitterVM />
     </Window.DataContext>
     <Window.Resources>
-        <Style x:Key="toolbarButtons" TargetType="{x:Type Button}">
-            <Setter Property="Height" Value="28" />
+        <Style x:Key="toolbarButton" TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="32" />
             <Setter Property="Width" Value="32" />
             <Setter Property="Margin" Value="4,0,3,0" />
             <Setter Property="Padding" Value="2"/>
         </Style>
-        <Style TargetType="TextBlock" x:Key="inHorizStack">
+        <Style x:Key="buttonImage" TargetType="Image">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.25" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="inHorizStack" TargetType="TextBlock">
             <Setter Property="Margin" Value="4,8" />
         </Style>
-        <Style TargetType="TextBox" x:Key="inHorizTextBox">
+        <Style x:Key="inHorizTextBox" TargetType="TextBox">
             <Setter Property="Margin" Value="4,8,4,4" />
         </Style>
+        <BitmapImage x:Key="uriIco24" UriSource="ArtAssets/ico-24.png"/>
+        <BitmapImage x:Key="uriImage24" UriSource="ArtAssets/Image-24.png"/>
         <BitmapImage x:Key="uriNew" UriSource="ArtAssets/NewDocument-16.png"/>
         <BitmapImage x:Key="uriOpen" UriSource="ArtAssets/open-16.png"/>
-        <BitmapImage x:Key="uriSave" UriSource="ArtAssets\save-16.png"/>
-        <Image x:Key="imgNew" Source="{StaticResource uriNew}" Stretch="Uniform"/>
-        <Image x:Key="imgOpen" Source="{StaticResource uriOpen}" Stretch="None"/>
-        <Image x:Key="imgSave" Source="{StaticResource uriSave}" Stretch="Uniform"/>
+        <BitmapImage x:Key="uriOptimize24" UriSource="ArtAssets/optimize-24.png"/>
+        <BitmapImage x:Key="uriResize24" UriSource="ArtAssets/Resize-24.png"/>
+        <BitmapImage x:Key="uriSave" UriSource="ArtAssets/save-16.png"/>
+        <Image x:Key="imgIco" Source="{StaticResource uriIco24}" Stretch="None" Style="{StaticResource buttonImage}"/>
+        <Image x:Key="imgImage" Source="{StaticResource uriImage24}" Stretch="None" Style="{StaticResource buttonImage}"/>
+        <Image x:Key="imgNew" Source="{StaticResource uriNew}" Stretch="None" Style="{StaticResource buttonImage}"/>
+        <Image x:Key="imgOptimize" Source="{StaticResource uriOptimize24}" Stretch="None" Style="{StaticResource buttonImage}"/>
+        <Image x:Key="imgOpen" Source="{StaticResource uriOpen}" Stretch="None" Style="{StaticResource buttonImage}"/>
+        <Image x:Key="imgResize" Source="{StaticResource uriResize24}" Stretch="None" Style="{StaticResource buttonImage}"/>
+        <Image x:Key="imgSave" Source="{StaticResource uriSave}" Stretch="None" Style="{StaticResource buttonImage}"/>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -78,7 +93,10 @@
                 </MenuItem>
             </Menu>
 
-            <Button Command="{Binding OpenCommand}" Content="{Binding Mode=OneWay, Source={StaticResource imgOpen}}" Style="{StaticResource toolbarButtons}"/>
+            <Button Command="{Binding OpenCommand}" Content="{Binding Mode=OneWay, Source={StaticResource imgImage}}" ToolTip="Open Image" Style="{StaticResource toolbarButton}"/>
+            <Button Command="{Binding ResizeCommand}" Content="{Binding Mode=OneWay, Source={StaticResource imgResize}}" ToolTip="Resize Image" Style="{StaticResource toolbarButton}"/>
+            <Button Command="{Binding OptimizeTargetImage}" Content="{Binding Mode=OneWay, Source={StaticResource imgOptimize}}" ToolTip="Optimize Image" Style="{StaticResource toolbarButton}"/>
+            <Button Command="{Binding MakeWin32Icon}" Content="{Binding Mode=OneWay, Source={StaticResource imgIco}}" ToolTip="Make Win32 Icon File" Style="{StaticResource toolbarButton}"/>
             <TextBlock Text="{Binding ImageFile.Size, Mode=OneWay, StringFormat=Size: \{0\}}" Style="{StaticResource inHorizStack}"/>
         </StackPanel>
 
@@ -112,9 +130,8 @@
 
 
         <!--Resize Image Elements-->
-        <Button Grid.Column="0" Grid.Row="1" Content="Resize Image" Margin="4,4" Command="{Binding ResizeCommand}"/>
 
-        <Grid Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1">
+        <Grid Grid.ColumnSpan="3" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"/>
                 <ColumnDefinition Width="*"/>
@@ -129,7 +146,7 @@
             <TextBlock Grid.Column="0" Style="{StaticResource inHorizStack}" Text="Target Width:" ToolTip="Target Width"/>
             <TextBox Grid.Column="1" Style="{StaticResource inHorizTextBox}" Text="{Binding TargetWidth}" TextAlignment="Right"/>
 
-            <Button x:Name="btnSetHeightToWidth" Grid.Column="2" Margin="0,0,8,0" Content="→" ToolTip="Set Target Height to Target Width" Click="BtnSetHeightToWidth_Click" FontSize="16"/>
+            <Button x:Name="btnSetHeightToWidth" Grid.Column="2" Content="→" ToolTip="Set Target Height to Target Width" Click="BtnSetHeightToWidth_Click" FontSize="16" Style="{StaticResource toolbarButton}"/>
 
             <TextBlock Grid.Column="3" Style="{StaticResource inHorizStack}" Text="Height:" ToolTip="Target Height"/>
             <TextBox Grid.Column="4" Style="{StaticResource inHorizTextBox}" Text="{Binding TargetHeight}" TextAlignment="Right"/>
@@ -158,8 +175,6 @@
             <CheckBox Grid.Column="2"  Margin="4,10,0,0" IsChecked="{Binding OptimizeTarget}" ToolTip="Optimize Target after operation" />
         </Grid>
 
-        <Button Grid.Column="0" Grid.Row="2" Content="Make Icon File" Margin="4,4" Command="{Binding MakeWin32Icon}"/>
-        <Button Grid.Column="2" Grid.Row="2" Content="Optimize" Margin="4,4" Command="{Binding OptimizeTargetImage}"/>
         <TextBlock Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="2" Style="{StaticResource inHorizStack}" Text="{Binding ElapsedTime, Mode=OneWay, StringFormat=ElapsedTime: \{0\}}"/>
 
     </Grid>

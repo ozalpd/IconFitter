@@ -113,16 +113,34 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ArtAssets\App-Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="ArtAssets\plus-16.png" />
+    <Resource Include="ArtAssets\ico-128.png" />
+    <Resource Include="ArtAssets\ico-16.png" />
+    <Resource Include="ArtAssets\ico-24.png" />
+    <Resource Include="ArtAssets\ico-32.png" />
+    <Resource Include="ArtAssets\ico-48.png" />
+    <Resource Include="ArtAssets\ico-64.png" />
+    <Resource Include="ArtAssets\Image-128.png" />
+    <Resource Include="ArtAssets\Image-16.png" />
+    <Resource Include="ArtAssets\Image-24.png" />
+    <Resource Include="ArtAssets\Image-32.png" />
+    <Resource Include="ArtAssets\Image-48.png" />
+    <Resource Include="ArtAssets\Image-64.png" />
     <Resource Include="ArtAssets\minus-16.png" />
     <Resource Include="ArtAssets\minus-red-16.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="ArtAssets\plus-16.png" />
     <Resource Include="ArtAssets\NewDocument-16.png" />
     <Resource Include="ArtAssets\open-16.png" />
+    <Resource Include="ArtAssets\optimize-16.png" />
+    <Resource Include="ArtAssets\optimize-24.png" />
+    <Resource Include="ArtAssets\reload-16.png" />
+    <Resource Include="ArtAssets\reload-24.png" />
     <Resource Include="ArtAssets\save-16.png" />
+    <Resource Include="ArtAssets\Resize-128.png" />
+    <Resource Include="ArtAssets\Resize-16.png" />
+    <Resource Include="ArtAssets\Resize-24.png" />
+    <Resource Include="ArtAssets\Resize-32.png" />
+    <Resource Include="ArtAssets\Resize-48.png" />
+    <Resource Include="ArtAssets\Resize-64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
