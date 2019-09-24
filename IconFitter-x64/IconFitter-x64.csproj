@@ -114,6 +114,16 @@
   <ItemGroup>
     <Resource Include="ArtAssets\App-Icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ArtAssets\plus-16.png" />
+    <Resource Include="ArtAssets\minus-16.png" />
+    <Resource Include="ArtAssets\minus-red-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ArtAssets\NewDocument-16.png" />
+    <Resource Include="ArtAssets\open-16.png" />
+    <Resource Include="ArtAssets\save-16.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <Copy SourceFiles="IconFitter64.VisualElementsManifest.xml" DestinationFolder="$(OutputPath)" ContinueOnError="true" />
