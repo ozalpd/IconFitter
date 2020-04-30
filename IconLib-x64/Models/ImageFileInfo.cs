@@ -84,6 +84,6 @@ namespace IconLib.Models
 
         /// <summary>Gets width and height of the current image a in proper string.</summary>
         /// <returns>Width and height of the current image.</returns>
-        public string Size { get { return string.Format("{0}x{1} pixels", Width, Height); } }
+        public string Size { get { return string.Format("{0} x {1}", Width, Height); } }
     }
 }

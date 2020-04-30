@@ -209,8 +209,6 @@ namespace IconLib.ViewModels
         private int? _targetWidth;
 
 
-
-
         public double Zoom
         {
             get { return _zoom ?? defaultZoom; }
@@ -223,12 +221,58 @@ namespace IconLib.ViewModels
                       : value > maxZoom ? maxZoom
                       : value;
                 RaisePropertyChanged("Zoom");
+                RaisePropertyChanged("ZoomText");
                 RaisePropertyChanged("ZoomFactor");
                 RaisePropertyChanged("ImageViewSize");
             }
         }
         private double? _zoom;
+
         public double ZoomFactor { get { return Zoom / 100.0; } }
+
+        public string[] ZoomOptions { get; } = {
+                    "2.5 %",
+                    "5 %",
+                    "12.5 %",
+                    "25 %",
+                    "33.3 %",
+                    "50 %",
+                    "66.67 %",
+                    "100 %",
+                    "200 %",
+                    "400 %",
+                    "800 %",
+                    "1600 %"
+                };
+
+        public string ZoomText
+        {
+            get
+            {
+                if (Zoom > 0)
+                    return string.Format("{0} %", Zoom);
+                return string.Empty;
+            }
+            set
+            {
+                double z = 0;
+                if (!string.IsNullOrEmpty(value))
+                {
+                    string s = value.Replace('%', ' ').Trim();
+                    double.TryParse(s, out z);
+                }
+                if (z > 0)
+                {
+                    Zoom = z;
+                }
+                else
+                {
+                    RaisePropertyChanged("ZoomText");
+                }
+            }
+        }
+
+
         public Size ImageViewSize
         {
             get
