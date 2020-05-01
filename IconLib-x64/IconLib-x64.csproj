@@ -61,6 +61,7 @@
     <Compile Include="Commands\OpenCommand.cs" />
     <Compile Include="Commands\OptimizeTargetCommand.cs" />
     <Compile Include="Commands\ResizeCommand.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Models\AppSettings.cs" />
     <Compile Include="Models\ImageFileInfo.cs" />
     <Compile Include="Models\PersistableBase.cs" />

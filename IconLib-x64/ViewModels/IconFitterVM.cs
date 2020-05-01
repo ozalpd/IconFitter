@@ -255,15 +255,11 @@ namespace IconLib.ViewModels
             }
             set
             {
-                double z = 0;
-                if (!string.IsNullOrEmpty(value))
-                {
-                    string s = value.Replace('%', ' ').Trim();
-                    double.TryParse(s, out z);
-                }
+                double z = value.GetZoom();
                 if (z > 0)
                 {
                     Zoom = z;
+                    RaisePropertyChanged("ManuelZoom");
                 }
                 else
                 {

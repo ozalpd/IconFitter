@@ -51,7 +51,11 @@ namespace IconFitter
             if (e.PropertyName.Equals("ImageFile"))
             {
                 FitImageToViewport();
-                imgAutoZoomed = true; //TODO: set this false when zoom changed by user
+                imgAutoZoomed = true;
+            }
+            else if (e.PropertyName.Equals("ManuelZoom"))
+            {
+                imgAutoZoomed = false;
             }
         }
 
@@ -74,24 +78,39 @@ namespace IconFitter
             ViewModel.TargetHeight = ViewModel.TargetWidth;
         }
 
+        private void GridSplitter_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            onResizing();
+        }
+
+        private void GridSplitter_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            onResizing();
+        }
+
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (imgAutoZoomed && !resizing)
-            {
-                var timer = new DispatcherTimer()
-                {
-                    Interval = new TimeSpan(0, 0, 0, 0, 250)
-                };
+            onResizing();
+        }
 
-                timer.Tick += (o, args) =>
-                {
-                    FitImageToViewport();
-                    timer.Stop();
-                    resizing = false;
-                };
-                timer.Start();
-                resizing = true;
-            }
+        private void onResizing()
+        {
+            if (imgAutoZoomed == false || resizing)
+                return;
+
+            var timer = new DispatcherTimer()
+            {
+                Interval = new TimeSpan(0, 0, 0, 0, 250)
+            };
+
+            timer.Tick += (o, args) =>
+            {
+                FitImageToViewport();
+                timer.Stop();
+                resizing = false;
+            };
+            timer.Start();
+            resizing = true;
         }
         private bool resizing = false;
 

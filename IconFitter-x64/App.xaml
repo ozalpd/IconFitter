@@ -21,7 +21,7 @@
             <Setter Property="Margin" Value="4,6" />
         </Style>
         <Style x:Key="horizTextBox" TargetType="TextBox">
-            <Setter Property="Margin" Value="4,6,4,2" />
+            <Setter Property="Margin" Value="4,6,2,2" />
         </Style>
         <Style x:Key="vertHeader" TargetType="TextBlock">
             <Setter Property="Background">
