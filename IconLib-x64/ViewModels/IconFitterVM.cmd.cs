@@ -15,10 +15,18 @@ namespace IconLib.ViewModels
             {
                 _elapsedTime = value;
                 RaisePropertyChanged("ElapsedTime");
+                RaisePropertyChanged("ElapsedTimeString");
             }
         }
         private TimeSpan? _elapsedTime;
 
+        public string ElapsedTimeString
+        {
+            get
+            {
+                return ElapsedTime.ToElapsedString();
+            }
+        }
 
         public MakeWin32Icon MakeWin32Icon
         {

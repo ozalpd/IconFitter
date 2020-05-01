@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Newtonsoft.Json;
+using System.Windows;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -11,6 +12,7 @@ namespace IconLib.Models
         public double Height { get; set; }
         public double Width { get; set; }
 
+        [JsonIgnore]
         [XmlIgnore]
         public bool IsOnPrimaryScreen { get; private set; }
 

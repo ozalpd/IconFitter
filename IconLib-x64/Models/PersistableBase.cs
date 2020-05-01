@@ -22,6 +22,8 @@ namespace IconLib.Models
                 serializer.TypeNameHandling = typeNameHandling;
                 var instance = serializer.Deserialize(reader, type) as PersistableBase;
                 reader.Close();
+                
+                instance.RecentFileName = fileName;
 
                 return instance;
             }
