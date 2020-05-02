@@ -28,6 +28,9 @@ namespace IconLib
             if (timeSpan.TotalSeconds > 60)
                 return string.Format("{0} {1:mm\\:ss}", elapsed, timeSpan);
 
+            if (timeSpan.TotalSeconds >= 10)
+                return string.Format("{0} {1:ss} sec", elapsed, timeSpan);
+
             if (timeSpan.TotalSeconds > 1)
                 return string.Format("{0} {1:ss\\:fff}", elapsed, timeSpan);
 

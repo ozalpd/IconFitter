@@ -1,6 +1,4 @@
-﻿using IconLib.ViewModels;
-using IconLib.Commands;
-using System.IO;
+﻿using System.IO;
 using System;
 using IconLib.Models;
 using System.Drawing;

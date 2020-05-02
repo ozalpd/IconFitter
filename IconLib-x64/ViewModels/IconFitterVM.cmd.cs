@@ -1,8 +1,6 @@
 ﻿using IconLib.Commands;
-using IconLib.Models;
 using System;
 using System.ComponentModel;
-using System.IO;
 
 namespace IconLib.ViewModels
 {

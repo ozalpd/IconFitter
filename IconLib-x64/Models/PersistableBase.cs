@@ -10,6 +10,7 @@ namespace IconLib.Models
         public string RecentFileName { get; protected set; }
 
 
+        //Method GetInstanceFromFile can not resolve in derived classes from another assemblies
         protected static PersistableBase GetInstanceFromFile(string fileName, Type type, TypeNameHandling typeNameHandling = TypeNameHandling.Objects)
         {
             if (!typeof(PersistableBase).IsAssignableFrom(type))
@@ -22,7 +23,7 @@ namespace IconLib.Models
                 serializer.TypeNameHandling = typeNameHandling;
                 var instance = serializer.Deserialize(reader, type) as PersistableBase;
                 reader.Close();
-                
+
                 instance.RecentFileName = fileName;
 
                 return instance;
