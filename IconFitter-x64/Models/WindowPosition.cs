@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
-namespace IconLib.Models
+namespace IconFitter.Models
 {
     public class WindowPosition
     {

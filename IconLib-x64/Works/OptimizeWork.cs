@@ -17,13 +17,13 @@ namespace IconLib.Works
 
             if (File.Exists(TargetFile) == false)
             {
-                if (ImageFile.Extension.Equals(TargetExtension, StringComparison.InvariantCultureIgnoreCase))
+                if (SourceImage.Extension.Equals(TargetExtension, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    File.Copy(ImageFile.FullName, TargetFile);
+                    File.Copy(SourceImage.FullName, TargetFile);
                 }
                 else
                 {
-                    using (var image = new MagickImage(ImageFile.FullName))
+                    using (var image = new MagickImage(SourceImage.FullName))
                     {
                         image.Strip();
                         image.Write(TargetFile);

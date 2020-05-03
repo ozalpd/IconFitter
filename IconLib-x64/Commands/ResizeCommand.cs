@@ -21,11 +21,11 @@ namespace IconLib.Commands
             var resize = new ResizeWork()
             {
                 KeepAspectRatio = ViewModel.KeepAspectRatio,
-                OptimizeTarget = ViewModel.OptimizeTarget,
+                Optimize = ViewModel.OptimizeTarget,
                 TargetExtension = ViewModel.TargetExtension,
-                ResizeQuality = ViewModel.TargetQuality,
-                ResizeHeight = ViewModel.TargetHeight,
-                ResizeWidth = ViewModel.TargetWidth
+                Quality = ViewModel.TargetQuality,
+                Height = ViewModel.TargetHeight,
+                Width = ViewModel.TargetWidth
             };
 
             resize.Execute(ViewModel.TargetResizeFileName, ViewModel.ImageFile);

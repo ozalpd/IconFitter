@@ -8,15 +8,15 @@ namespace IconLib.Works
 
         protected override void ExecuteWork()
         {
-            using (var image = new MagickImage(ImageFile.FullName))
+            using (var image = new MagickImage(SourceImage.FullName))
             {
-                if (ImageFile.Width > ImageFile.Height)
+                if (SourceImage.Width > SourceImage.Height)
                 {
-                    image.Crop(ImageFile.Height, ImageFile.Height, Gravity.Center);
+                    image.Crop(SourceImage.Height, SourceImage.Height, Gravity.Center);
                 }
-                else if (ImageFile.Height > ImageFile.Width)
+                else if (SourceImage.Height > SourceImage.Width)
                 {
-                    image.Crop(ImageFile.Width, ImageFile.Width, Gravity.Center);
+                    image.Crop(SourceImage.Width, SourceImage.Width, Gravity.Center);
                 }
 
 

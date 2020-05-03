@@ -1,9 +1,10 @@
-﻿using IconLib.Models;
+﻿using IconFitter.Models;
+using IconLib.Models;
 using IconLib.ViewModels;
-using System.IO;
-using System.Windows;
-using System.Reflection;
 using System;
+using System.IO;
+using System.Reflection;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace IconFitter

@@ -62,15 +62,12 @@
     <Compile Include="Commands\OptimizeTargetCommand.cs" />
     <Compile Include="Commands\ResizeCommand.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Models\AppSettings.cs" />
     <Compile Include="Models\ImageFileInfo.cs" />
     <Compile Include="Models\PersistableBase.cs" />
     <Compile Include="Models\PersistableList.cs" />
-    <Compile Include="Models\WindowPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\IconFitterVM.cmd.cs" />
     <Compile Include="ViewModels\IconFitterVM.cs" />
-    <Compile Include="ViewModels\PersistableViewModel.cs" />
     <Compile Include="Works\ImgWork.cs" />
     <Compile Include="Works\OptimizeWork.cs" />
     <Compile Include="Works\ResizeWork.cs" />

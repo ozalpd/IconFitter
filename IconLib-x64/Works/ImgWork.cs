@@ -8,20 +8,23 @@ namespace IconLib.Works
     public abstract class ImgWork
     {
         [JsonIgnore]
-        protected ImageFileInfo ImageFile { get; set; }
+        protected ImageFileInfo SourceImage { get; set; }
 
         [JsonIgnore]
         protected string TargetFile { get; set; }
 
+        /// <summary>
+        /// Extension of resulting image file
+        /// </summary>
         public string TargetExtension
         {
             get
             {
-                if (string.IsNullOrEmpty(_targetExtension) && ImageFile == null)
+                if (string.IsNullOrEmpty(_targetExtension) && SourceImage == null)
                     return string.Empty;
 
                 if (string.IsNullOrEmpty(_targetExtension))
-                    return ImageFile.Extension;
+                    return SourceImage.Extension;
 
                 return _targetExtension;
             }
@@ -35,11 +38,15 @@ namespace IconLib.Works
         private string _targetExtension;
 
 
-
-        public void Execute(string targetFile, ImageFileInfo imageFile)
+        /// <summary>
+        /// Executes work
+        /// </summary>
+        /// <param name="targetFile">Path of resulting image file</param>
+        /// <param name="sourceImage">Source image file info</param>
+        public void Execute(string targetFile, ImageFileInfo sourceImage)
         {
             TargetFile = targetFile;
-            ImageFile = imageFile;
+            SourceImage = sourceImage;
             ExecuteWork();
         }
         protected abstract void ExecuteWork();
