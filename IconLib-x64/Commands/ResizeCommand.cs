@@ -1,6 +1,6 @@
-﻿using System;
-using ImageMagick;
-using IconLib.ViewModels;
+﻿using IconLib.ViewModels;
+using IconLib.Works;
+using System;
 
 namespace IconLib.Commands
 {
@@ -18,50 +18,17 @@ namespace IconLib.Commands
             DateTime startTime = DateTime.Now;
             ViewModel.CreateTargetDirectory();
 
-            using (var image = new MagickImage(ImageFile.FullName))
+            var resize = new ResizeWork()
             {
-                MagickGeometry size;
-                bool cropIt = false;
-                if (ViewModel.KeepAspectRatio && ViewModel.TargetWidth > 0 && ViewModel.TargetHeight > 0) //Keep Aspect Ratio by cropping
-                {
-                    double rateW = (double)ViewModel.TargetWidth / ImageFile.Width;
-                    double rateH = (double)ViewModel.TargetHeight / ImageFile.Height;
+                KeepAspectRatio = ViewModel.KeepAspectRatio,
+                OptimizeTarget = ViewModel.OptimizeTarget,
+                TargetExtension = ViewModel.TargetExtension,
+                ResizeQuality = ViewModel.TargetQuality,
+                ResizeHeight = ViewModel.TargetHeight,
+                ResizeWidth = ViewModel.TargetWidth
+            };
 
-                    size = rateH > rateW
-                         ? new MagickGeometry((int)(ImageFile.Width * rateH), ViewModel.TargetHeight)
-                         : rateH < rateW
-                         ? new MagickGeometry(ViewModel.TargetWidth, (int)(ImageFile.Height * rateW))
-                         : new MagickGeometry(ViewModel.TargetWidth, ViewModel.TargetHeight);
-
-                    cropIt = (rateH < rateW) || (rateH > rateW);
-                }
-                else
-                {
-                    size = new MagickGeometry(ViewModel.TargetWidth, ViewModel.TargetHeight);
-                }
-
-                size.IgnoreAspectRatio = !ViewModel.KeepAspectRatio;
-
-                image.Quality = ViewModel.TargetQuality;
-                //image.Settings.Compression = CompressionMethod.LosslessJPEG;
-                if (ViewModel.OptimizeTarget)
-                    image.Strip();
-
-                image.FilterType = FilterType.Lanczos2Sharp; //this seems better to me in some downsampled images - ozalp 2019.08.31
-                image.Resize(size);
-
-                if (cropIt)
-                {
-                    image.Crop(ViewModel.TargetWidth, ViewModel.TargetHeight, Gravity.Center);
-                }
-
-                //TODO: add ResultImageSource property to IconFitterVM
-                //ViewModel.ResultImageSource = image.ToBitmapSource();
-                image.Write(ViewModel.TargetResizeFileName);
-            }
-
-            if (ViewModel.OptimizeTarget)
-                base.Execute(ViewModel.TargetResizeFileName);
+            resize.Execute(ViewModel.TargetResizeFileName, ViewModel.ImageFile);
 
             ViewModel.ElapsedTime = DateTime.Now.Subtract(startTime);
         }

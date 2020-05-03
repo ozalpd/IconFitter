@@ -20,8 +20,12 @@ namespace IconLib.Commands
 
         protected virtual void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("ImageFile"))
+            if (e.PropertyName.Equals("ImageFile") ||
+                e.PropertyName.Equals("TargetExtension") ||
+                e.PropertyName.Equals("TargetFileName"))
+            {
                 RaiseCanExecuteChanged();
+            }
         }
     }
 }

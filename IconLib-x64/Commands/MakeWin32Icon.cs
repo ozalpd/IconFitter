@@ -1,5 +1,5 @@
-﻿using ImageMagick;
-using IconLib.ViewModels;
+﻿using IconLib.ViewModels;
+using IconLib.Works;
 using System;
 
 namespace IconLib.Commands
@@ -17,25 +17,12 @@ namespace IconLib.Commands
             string targetExt = ViewModel.TargetExtension;
             ViewModel.TargetExtension = ".ico";
 
-            using (var image = new MagickImage(ImageFile.FullName))
+            var work = new Win32IconWork()
             {
-                if (ImageFile.Width > ImageFile.Height)
-                {
-                    image.Crop(ImageFile.Height, ImageFile.Height, Gravity.Center);
-                }
-                else if (ImageFile.Height > ImageFile.Width)
-                {
-                    image.Crop(ImageFile.Width, ImageFile.Width, Gravity.Center);
-                }
-
-
-                image.Settings.SetDefine(MagickFormat.Icon, "auto-resize", "256,48,32,24,16");
-                image.Write(ViewModel.TargetFileName);
-            }
-
-            if (ViewModel.OptimizeTarget)
-                base.Execute(ViewModel.TargetFileName);
-
+                OptimizeTarget = ViewModel.OptimizeTarget,
+                TargetExtension = ".ico"
+            };
+            work.Execute(ViewModel.TargetFileName, ImageFile);
 
             ViewModel.TargetExtension = targetExt;
             ViewModel.ElapsedTime = DateTime.Now.Subtract(startTime);

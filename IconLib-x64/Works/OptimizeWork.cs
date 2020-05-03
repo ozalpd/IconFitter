@@ -12,10 +12,10 @@ namespace IconLib.Works
             if (!Directory.Exists(targetDirectory))
                 Directory.CreateDirectory(targetDirectory);
 
-            if (!IsExtSupported(TargetExtension))
+            if (!IsTargetExtSupported(TargetExtension))
                 return; //TODO:Buraya bir error uydurmak gerekir mi? 
 
-            if (!File.Exists(TargetFile))
+            if (File.Exists(TargetFile) == false)
             {
                 if (ImageFile.Extension.Equals(TargetExtension, StringComparison.InvariantCultureIgnoreCase))
                 {

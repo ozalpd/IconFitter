@@ -74,6 +74,7 @@
     <Compile Include="Works\ImgWork.cs" />
     <Compile Include="Works\OptimizeWork.cs" />
     <Compile Include="Works\ResizeWork.cs" />
+    <Compile Include="Works\Win32IconWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

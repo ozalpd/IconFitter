@@ -47,15 +47,15 @@ namespace IconLib.Works
 
         protected bool IsTargetSupported()
         {
-            return IsExtSupported(Path.GetExtension(TargetFile));
+            return IsTargetExtSupported(Path.GetExtension(TargetFile));
         }
 
-        public static bool IsExtSupported(string extension)
+        public static bool IsTargetExtSupported(string extension)
         {
-            return SupportedExts.Contains(extension.ToLowerInvariant());
+            return SupportedTargetExts.Contains(extension.ToLowerInvariant());
         }
 
-        public static string[] SupportedExts = new string[4]
+        public static string[] SupportedTargetExts = new string[4]
         {
             ".jpeg",
             ".jpg",

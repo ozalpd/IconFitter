@@ -13,7 +13,8 @@ namespace IconLib.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return ImageFile != null && ImageFile.Exists && ImgWork.IsExtSupported(ImageFile.Extension);
+            return ImageFile != null && ImageFile.Exists
+                && ImgWork.IsTargetExtSupported(ViewModel.TargetExtension);
         }
 
 
@@ -23,30 +24,22 @@ namespace IconLib.Commands
             if (parameter is string && File.Exists((string)parameter))
             {
                 targetFile = (string)parameter;
-                if (!IsSupported())
+                if (ImgWork.IsTargetExtSupported(Path.GetExtension(targetFile)) == false)
                     return;
             }
             else
             {
-                if (!ImgWork.IsExtSupported(ViewModel.TargetExtension))
+                if (ImgWork.IsTargetExtSupported(ViewModel.TargetExtension) == false)
                     return;
 
                 targetFile = ViewModel.TargetFileName;
             }
 
-            var opt = new OptimizeWork();
-            opt.TargetExtension = ViewModel.TargetExtension;
-            opt.Execute(targetFile, ImageFile);
+            var work = new OptimizeWork() { TargetExtension = ViewModel.TargetExtension };
+            work.Execute(targetFile, ImageFile);
 
             ViewModel.ElapsedTime = DateTime.Now.Subtract(startTime);
         }
         private string targetFile;
-
-
-
-        private bool IsSupported()
-        {
-            return ImgWork.IsExtSupported(Path.GetExtension(targetFile));
-        }
     }
 }
