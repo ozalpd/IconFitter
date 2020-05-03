@@ -1,8 +1,8 @@
-﻿using IconLib.ViewModels;
+﻿using IconFitter.ViewModels;
 using IconLib.Works;
 using System;
 
-namespace IconLib.Commands
+namespace IconFitter.Commands
 {
     public class ResizeCommand : OptimizeTargetCommand
     {

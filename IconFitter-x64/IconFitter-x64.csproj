@@ -81,8 +81,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AbstractCommand.cs" />
+    <Compile Include="Commands\AbstractImageCommand.cs" />
+    <Compile Include="Commands\MakeWin32Icon.cs" />
+    <Compile Include="Commands\OpenCommand.cs" />
+    <Compile Include="Commands\OptimizeTargetCommand.cs" />
+    <Compile Include="Commands\ResizeCommand.cs" />
     <Compile Include="Models\AppSettings.cs" />
     <Compile Include="Models\WindowPosition.cs" />
+    <Compile Include="ViewModels\IconFitterVM.cmd.cs" />
+    <Compile Include="ViewModels\IconFitterVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

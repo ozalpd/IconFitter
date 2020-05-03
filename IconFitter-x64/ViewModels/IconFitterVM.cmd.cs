@@ -1,8 +1,9 @@
-﻿using IconLib.Commands;
+﻿using IconFitter.Commands;
+using IconLib;
 using System;
 using System.ComponentModel;
 
-namespace IconLib.ViewModels
+namespace IconFitter.ViewModels
 {
     public partial class IconFitterVM : INotifyPropertyChanged
     {

@@ -1,8 +1,8 @@
-﻿using IconLib.ViewModels;
+﻿using IconFitter.ViewModels;
 using System;
 using System.Windows.Input;
 
-namespace IconLib.Commands
+namespace IconFitter.Commands
 {
     public abstract class AbstractCommand : ICommand
     {

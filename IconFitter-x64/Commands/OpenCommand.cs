@@ -1,8 +1,8 @@
 ﻿using IconLib.Models;
-using IconLib.ViewModels;
+using IconFitter.ViewModels;
 using Microsoft.Win32;
 
-namespace IconLib.Commands
+namespace IconFitter.Commands
 {
     public class OpenCommand : AbstractCommand
     {

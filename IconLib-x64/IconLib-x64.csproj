@@ -41,11 +41,9 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,19 +53,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\AbstractCommand.cs" />
-    <Compile Include="Commands\AbstractImageCommand.cs" />
-    <Compile Include="Commands\MakeWin32Icon.cs" />
-    <Compile Include="Commands\OpenCommand.cs" />
-    <Compile Include="Commands\OptimizeTargetCommand.cs" />
-    <Compile Include="Commands\ResizeCommand.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Models\ImageFileInfo.cs" />
     <Compile Include="Models\PersistableBase.cs" />
     <Compile Include="Models\PersistableList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\IconFitterVM.cmd.cs" />
-    <Compile Include="ViewModels\IconFitterVM.cs" />
     <Compile Include="Works\ImgWork.cs" />
     <Compile Include="Works\OptimizeWork.cs" />
     <Compile Include="Works\ResizeWork.cs" />

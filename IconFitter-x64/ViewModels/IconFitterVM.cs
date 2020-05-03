@@ -1,9 +1,10 @@
-﻿using System.IO;
-using System;
+﻿using IconLib;
 using IconLib.Models;
+using System;
 using System.Drawing;
+using System.IO;
 
-namespace IconLib.ViewModels
+namespace IconFitter.ViewModels
 {
     public partial class IconFitterVM
     {

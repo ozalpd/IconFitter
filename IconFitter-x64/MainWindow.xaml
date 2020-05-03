@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IconFitter"
-        xmlns:vm="clr-namespace:IconLib.ViewModels;assembly=IconLib"
+        xmlns:vm="clr-namespace:IconFitter.ViewModels"
         mc:Ignorable="d"
         Title="Icon Fitter" Icon="ArtAssets\App-Icon.ico"
         Height="400" Width="900" MinHeight="320" MinWidth="640"

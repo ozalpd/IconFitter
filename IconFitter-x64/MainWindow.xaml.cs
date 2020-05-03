@@ -1,6 +1,6 @@
 ﻿using IconFitter.Models;
+using IconFitter.ViewModels;
 using IconLib.Models;
-using IconLib.ViewModels;
 using System;
 using System.IO;
 using System.Reflection;

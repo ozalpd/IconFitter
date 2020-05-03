@@ -1,8 +1,8 @@
 ﻿using IconLib.Models;
-using IconLib.ViewModels;
+using IconFitter.ViewModels;
 using System.ComponentModel;
 
-namespace IconLib.Commands
+namespace IconFitter.Commands
 {
     public abstract class AbstractImageCommand : AbstractCommand
     {

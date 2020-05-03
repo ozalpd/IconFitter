@@ -1,9 +1,9 @@
-﻿using IconLib.ViewModels;
+﻿using IconFitter.ViewModels;
 using IconLib.Works;
 using System;
 using System.IO;
 
-namespace IconLib.Commands
+namespace IconFitter.Commands
 {
     public class OptimizeTargetCommand : AbstractImageCommand
     {
