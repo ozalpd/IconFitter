@@ -146,7 +146,7 @@ namespace IconFitter.ViewModels
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "IconFitter");
         }
 
-        public string TargetResizeFileName
+        public string ResizeFileName
         {
             get
             {
@@ -155,20 +155,16 @@ namespace IconFitter.ViewModels
 
                 if (TargetWidth == TargetHeight)
                 {
-                    return Path.Combine(TargetDirectory,
-                            string.Format("{0}-{1}{2}",
+                    return string.Format("{0}-{1}",
                                        Path.GetFileNameWithoutExtension(ImageFile.Name),
-                                       TargetHeight,
-                                       TargetExtension));
+                                       TargetHeight);
                 }
                 else
                 {
-                    return Path.Combine(TargetDirectory,
-                            string.Format("{0}-{1}x{2}{3}",
+                    return string.Format("{0}-{1}x{2}",
                                        Path.GetFileNameWithoutExtension(ImageFile.Name),
                                        TargetWidth,
-                                       TargetHeight,
-                                       TargetExtension));
+                                       TargetHeight);
                 }
             }
         }

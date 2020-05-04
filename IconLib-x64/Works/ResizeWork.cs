@@ -1,4 +1,5 @@
-﻿using ImageMagick;
+﻿using IconLib.Models;
+using ImageMagick;
 
 namespace IconLib.Works
 {
@@ -29,21 +30,21 @@ namespace IconLib.Works
         /// </summary>
         public int Quality { get; set; }
 
-        protected override void ExecuteWork()
+        protected override void ExecuteWork(ImageFileInfo sourceImage, string fullTargetName)
         {
-            using (var image = new MagickImage(SourceImage.FullName))
+            using (var image = new MagickImage(sourceImage.FullName))
             {
                 MagickGeometry size;
                 bool cropIt = false;
                 if (KeepAspectRatio && Width > 0 && Height > 0) //Keep Aspect Ratio by cropping
                 {
-                    double rateW = (double)Width / SourceImage.Width;
-                    double rateH = (double)Height / SourceImage.Height;
+                    double rateW = (double)Width / sourceImage.Width;
+                    double rateH = (double)Height / sourceImage.Height;
 
                     size = rateH > rateW
-                         ? new MagickGeometry((int)(SourceImage.Width * rateH), Height)
+                         ? new MagickGeometry((int)(sourceImage.Width * rateH), Height)
                          : rateH < rateW
-                         ? new MagickGeometry(Width, (int)(SourceImage.Height * rateW))
+                         ? new MagickGeometry(Width, (int)(sourceImage.Height * rateW))
                          : new MagickGeometry(Width, Height);
 
                     cropIt = (rateH < rateW) || (rateH > rateW);
@@ -70,11 +71,11 @@ namespace IconLib.Works
 
                 //TODO: add ResultImageSource property to IconFitterVM
                 //ViewModel.ResultImageSource = image.ToBitmapSource();
-                image.Write(TargetFile);
+                image.Write(fullTargetName);
             }
 
             if (Optimize)
-                base.ExecuteWork();
+                base.ExecuteWork(sourceImage, fullTargetName);
         }
     }
 }

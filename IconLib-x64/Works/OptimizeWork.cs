@@ -1,4 +1,5 @@
-﻿using ImageMagick;
+﻿using IconLib.Models;
+using ImageMagick;
 using System;
 using System.IO;
 
@@ -6,27 +7,24 @@ namespace IconLib.Works
 {
     public class OptimizeWork : ImgWork
     {
-        protected override void ExecuteWork()
+        protected override void ExecuteWork(ImageFileInfo sourceImage, string fullTargetName)
         {
-            string targetDirectory = Path.GetDirectoryName(TargetFile);
-            if (!Directory.Exists(targetDirectory))
-                Directory.CreateDirectory(targetDirectory);
-
-            if (!IsTargetExtSupported(TargetExtension))
+            string ext = Path.GetExtension(fullTargetName);
+            if (!IsTargetExtSupported(ext))
                 return; //TODO:Buraya bir error uydurmak gerekir mi? 
 
-            if (File.Exists(TargetFile) == false)
+            if (File.Exists(fullTargetName) == false)
             {
-                if (SourceImage.Extension.Equals(TargetExtension, StringComparison.InvariantCultureIgnoreCase))
+                if (sourceImage.Extension.Equals(ext, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    File.Copy(SourceImage.FullName, TargetFile);
+                    File.Copy(sourceImage.FullName, fullTargetName);
                 }
                 else
                 {
-                    using (var image = new MagickImage(SourceImage.FullName))
+                    using (var image = new MagickImage(sourceImage.FullName))
                     {
                         image.Strip();
-                        image.Write(TargetFile);
+                        image.Write(fullTargetName);
                     }
                 }
             }
@@ -35,7 +33,7 @@ namespace IconLib.Works
             {
                 OptimalCompression = true
             };
-            imageOptimizer.LosslessCompress(TargetFile);
+            imageOptimizer.LosslessCompress(fullTargetName);
         }
     }
 }

@@ -4,31 +4,26 @@ using System;
 
 namespace IconFitter.Commands
 {
-    public class ResizeCommand : OptimizeTargetCommand
+    public class ResizeCommand : AbstractImgWorkCommand
     {
         public ResizeCommand(IconFitterVM viewModel) : base(viewModel) { }
 
-        public override bool CanExecute(object parameter)
-        {
-            return ImageFile != null && ImageFile.Exists;
-        }
 
         public override void Execute(object parameter)
         {
             DateTime startTime = DateTime.Now;
-            ViewModel.CreateTargetDirectory();
-
             var resize = new ResizeWork()
             {
                 KeepAspectRatio = ViewModel.KeepAspectRatio,
                 Optimize = ViewModel.OptimizeTarget,
-                TargetExtension = ViewModel.TargetExtension,
                 Quality = ViewModel.TargetQuality,
                 Height = ViewModel.TargetHeight,
-                Width = ViewModel.TargetWidth
+                Width = ViewModel.TargetWidth,
+                //SpaceAlternative = '_',
+                TargetExtension = ViewModel.TargetExtension,
+                TargetFileName = ViewModel.ResizeFileName
             };
-
-            resize.Execute(ViewModel.TargetResizeFileName, ViewModel.ImageFile);
+            resize.Execute(ViewModel.ImageFile, ViewModel.TargetDirectory);
 
             ViewModel.ElapsedTime = DateTime.Now.Subtract(startTime);
         }

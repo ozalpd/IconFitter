@@ -1,12 +1,13 @@
 ﻿using IconLib.Models;
 using IconFitter.ViewModels;
 using System.ComponentModel;
+using IconLib.Works;
 
 namespace IconFitter.Commands
 {
-    public abstract class AbstractImageCommand : AbstractCommand
+    public abstract class AbstractImgWorkCommand : AbstractCommand
     {
-        public AbstractImageCommand(IconFitterVM viewModel) : base(viewModel)
+        protected AbstractImgWorkCommand(IconFitterVM viewModel) : base(viewModel)
         {
             viewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -15,7 +16,8 @@ namespace IconFitter.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return ImageFile != null && ImageFile.Exists;
+            return ImageFile != null && ImageFile.Exists
+                && ImgWork.IsTargetExtSupported(ViewModel.TargetExtension);
         }
 
         protected virtual void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

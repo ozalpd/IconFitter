@@ -1,4 +1,5 @@
-﻿using ImageMagick;
+﻿using IconLib.Models;
+using ImageMagick;
 
 namespace IconLib.Works
 {
@@ -6,26 +7,26 @@ namespace IconLib.Works
     {
         public bool OptimizeTarget { get; set; }
 
-        protected override void ExecuteWork()
+        protected override void ExecuteWork(ImageFileInfo sourceImage, string fullTargetName)
         {
-            using (var image = new MagickImage(SourceImage.FullName))
+            using (var image = new MagickImage(sourceImage.FullName))
             {
-                if (SourceImage.Width > SourceImage.Height)
+                if (sourceImage.Width > sourceImage.Height)
                 {
-                    image.Crop(SourceImage.Height, SourceImage.Height, Gravity.Center);
+                    image.Crop(sourceImage.Height, sourceImage.Height, Gravity.Center);
                 }
-                else if (SourceImage.Height > SourceImage.Width)
+                else if (sourceImage.Height > sourceImage.Width)
                 {
-                    image.Crop(SourceImage.Width, SourceImage.Width, Gravity.Center);
+                    image.Crop(sourceImage.Width, sourceImage.Width, Gravity.Center);
                 }
 
 
                 image.Settings.SetDefine(MagickFormat.Icon, "auto-resize", "256,48,32,24,16");
-                image.Write(TargetFile);
+                image.Write(fullTargetName);
             }
 
             if (OptimizeTarget)
-                base.ExecuteWork();
+                base.ExecuteWork(sourceImage, fullTargetName);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using IconLib.Models;
 using Newtonsoft.Json;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 
@@ -7,27 +8,17 @@ namespace IconLib.Works
 {
     public abstract class ImgWork
     {
-        [JsonIgnore]
-        protected ImageFileInfo SourceImage { get; set; }
-
-        [JsonIgnore]
-        protected string TargetFile { get; set; }
+        /// <summary>
+        /// Target file name without extension
+        /// </summary>
+        public string TargetFileName { get; set; }
 
         /// <summary>
         /// Extension of resulting image file
         /// </summary>
         public string TargetExtension
         {
-            get
-            {
-                if (string.IsNullOrEmpty(_targetExtension) && SourceImage == null)
-                    return string.Empty;
-
-                if (string.IsNullOrEmpty(_targetExtension))
-                    return SourceImage.Extension;
-
-                return _targetExtension;
-            }
+            get { return _targetExtension; }
             set
             {
                 _targetExtension = value.Trim();
@@ -37,24 +28,52 @@ namespace IconLib.Works
         }
         private string _targetExtension;
 
+        /// <summary>
+        /// Sub folder name to use when calculating full path of resulting image file
+        /// </summary>
+        public string TargetSubFolder { get; set; }
+
+        /// <summary>
+        /// Alternative of space char.
+        /// </summary>
+        public char? SpaceAlternative { get; set; }
+
+        public void Execute(ImageFileInfo sourceImage, string targetDirectory)
+        {
+            ExecuteWork(sourceImage, GetFullTargetPath(sourceImage, targetDirectory));
+        }
 
         /// <summary>
         /// Executes work
         /// </summary>
-        /// <param name="targetFile">Path of resulting image file</param>
         /// <param name="sourceImage">Source image file info</param>
-        public void Execute(string targetFile, ImageFileInfo sourceImage)
+        /// <param name="fullTargetName">Full path of resulting image file</param>
+        protected abstract void ExecuteWork(ImageFileInfo sourceImage, string fullTargetName);
+
+        protected virtual string GetFullTargetPath(ImageFileInfo sourceImage, string targetDirectory)
         {
-            TargetFile = targetFile;
-            SourceImage = sourceImage;
-            ExecuteWork();
+            if (string.IsNullOrWhiteSpace(TargetSubFolder) == false)
+                targetDirectory = Path.Combine(targetDirectory, TargetSubFolder);
+
+            if (!Directory.Exists(targetDirectory))
+                Directory.CreateDirectory(targetDirectory);
+
+            return Path.Combine(targetDirectory, GetTargetFileName(sourceImage));
         }
-        protected abstract void ExecuteWork();
 
-
-        protected bool IsTargetSupported()
+        protected virtual string GetTargetFileName(ImageFileInfo sourceImage)
         {
-            return IsTargetExtSupported(Path.GetExtension(TargetFile));
+            string ext = string.IsNullOrEmpty(TargetExtension)
+                       ? sourceImage.Extension
+                       : TargetExtension;
+
+            string fileName = string.IsNullOrEmpty(TargetFileName)
+                            ? string.Concat(Path.GetFileNameWithoutExtension(sourceImage.Name), ext)
+                            : string.Concat(TargetFileName, ext);
+
+            return SpaceAlternative.HasValue
+                 ? fileName.Replace(' ', SpaceAlternative.Value)
+                 : fileName;
         }
 
         public static bool IsTargetExtSupported(string extension)

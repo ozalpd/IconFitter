@@ -18,8 +18,8 @@ namespace IconFitter
         {
             InitializeComponent();
 
-            string appDir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            settingsFile = System.IO.Path.Combine(appDir, "IconFitter.prefs.json");
+            string appDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            settingsFile = Path.Combine(appDir, "IconFitter.prefs.json");
 
             if (File.Exists(settingsFile))
             {

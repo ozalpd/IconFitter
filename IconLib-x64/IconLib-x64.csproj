@@ -59,6 +59,7 @@
     <Compile Include="Models\PersistableList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Works\ImgWork.cs" />
+    <Compile Include="Works\ImgWorkSet.cs" />
     <Compile Include="Works\OptimizeWork.cs" />
     <Compile Include="Works\ResizeWork.cs" />
     <Compile Include="Works\Win32IconWork.cs" />

@@ -4,7 +4,7 @@ using System;
 
 namespace IconFitter.Commands
 {
-    public class MakeWin32Icon : OptimizeTargetCommand
+    public class MakeWin32Icon : AbstractImgWorkCommand
     {
         public MakeWin32Icon(IconFitterVM viewModel) : base(viewModel) { }
 
@@ -12,19 +12,13 @@ namespace IconFitter.Commands
         public override void Execute(object parameter)
         {
             DateTime startTime = DateTime.Now;
-            ViewModel.CreateTargetDirectory();
-
-            string targetExt = ViewModel.TargetExtension;
-            ViewModel.TargetExtension = ".ico";
-
             var work = new Win32IconWork()
             {
                 OptimizeTarget = ViewModel.OptimizeTarget,
                 TargetExtension = ".ico"
             };
-            work.Execute(ViewModel.TargetFileName, ImageFile);
+            work.Execute(ImageFile, ViewModel.TargetDirectory);
 
-            ViewModel.TargetExtension = targetExt;
             ViewModel.ElapsedTime = DateTime.Now.Subtract(startTime);
         }
     }

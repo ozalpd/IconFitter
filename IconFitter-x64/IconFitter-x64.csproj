@@ -82,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\AbstractCommand.cs" />
-    <Compile Include="Commands\AbstractImageCommand.cs" />
+    <Compile Include="Commands\AbstractImgWorkCommand.cs" />
     <Compile Include="Commands\MakeWin32Icon.cs" />
     <Compile Include="Commands\OpenCommand.cs" />
     <Compile Include="Commands\OptimizeTargetCommand.cs" />
