@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IconFitter"
         xmlns:vm="clr-namespace:IconFitter.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:behaviors="clr-namespace:IconFitter.Behaviors"
         mc:Ignorable="d"
         Title="Icon Fitter" Icon="ArtAssets\App-Icon.ico"
         Height="400" Width="900" MinHeight="320" MinWidth="640"
@@ -93,10 +94,14 @@
                         <ColumnDefinition Width="24"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource horizTextBlock}" Text="Zoom:" ToolTip="Target Width"/>
+                    <TextBlock Grid.Column="0" Style="{StaticResource formTextBlock}" Text="Zoom:" ToolTip="Target Width"/>
                     <ComboBox Grid.Column="2" Grid.ColumnSpan="2" Margin="4,6,4,2" ItemsSource="{Binding ZoomOptions}" SelectedItem="{Binding ZoomText}"/>
-                    <TextBox Grid.Column="2" Style="{StaticResource horizTextBox}" Text="{Binding ZoomText}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="2"  Grid.ColumnSpan="3" Style="{StaticResource horizTextBlock}" Text="{Binding ImageFile.Size, Mode=OneWay}" ToolTip="Image Size"/>
+                    <TextBox Grid.Column="2" Style="{StaticResource formTextBox}" Text="{Binding ZoomText}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:ZoomTextBoxBehavior/>
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBlock Grid.Row="1" Grid.Column="2"  Grid.ColumnSpan="3" Style="{StaticResource formTextBlock}" Text="{Binding ImageFile.Size, Mode=OneWay}" ToolTip="Image Size"/>
                 </Grid>
                 <!--// Source Image Ends -->
 
@@ -113,19 +118,20 @@
                         <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource horizTextBlock}" Text="Target Folder:"/>
-                    <TextBox Grid.Column="1" Grid.ColumnSpan="4" Style="{StaticResource horizTextBox}"
-                             Text="{Binding TargetDirectory}" ToolTip="{Binding TargetDirectory}"/>
-
-                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource horizTextBlock}"
+                    <TextBlock Grid.Column="0" Style="{StaticResource formTextBlock}"
                                Text="Extension:" ToolTip="Target file extension"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource horizTextBox}"
+                    <TextBox Grid.Column="1" Style="{StaticResource formTextBox}"
                              Text="{Binding TargetExtension}" ToolTip="Target file extension"/>
 
-                    <TextBlock Grid.Row="2" Grid.Column="3" Style="{StaticResource horizTextBlock}"
+                    <TextBlock Grid.Column="3" Style="{StaticResource formTextBlock}"
                                Text="Quality:" ToolTip="Target file quality"/>
-                    <TextBox Grid.Row="2" Grid.Column="4" Style="{StaticResource horizTextBox}" TextAlignment="Right"
+                    <TextBox Grid.Column="4" Style="{StaticResource formTextBox}" TextAlignment="Right"
                              Text="{Binding TargetQuality}" ToolTip="Target file quality"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource formTextBlock}" Text="Target Folder:"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Style="{StaticResource formTextBox}"
+                             Text="{Binding TargetDirectory}" ToolTip="{Binding TargetDirectory}"/>
+
                 </Grid>
 
                 <Expander IsExpanded="True" Padding="0" Background="#FFD8F0FF" Margin="0" BorderBrush="Gray" BorderThickness="1">
@@ -150,8 +156,8 @@
                             <RowDefinition Height="28"/>
                             <RowDefinition Height="4"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource horizTextBlock}" Text="Width:" ToolTip="Target Width"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource horizTextBox}" Text="{Binding TargetWidth}" TextAlignment="Right"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource formTextBlock}" Text="Width:" ToolTip="Target Width"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource formTextBox}" Text="{Binding TargetWidth}" TextAlignment="Right"/>
 
                         <Button x:Name="btnSetHeightToWidth" Grid.Row="0" Grid.Column="2" Margin="2,5,0,2"
                                 ToolTip="Set Target Height to Target Width" Click="BtnSetHeightToWidth_Click" Padding="0">
@@ -160,15 +166,15 @@
                             </Button.Content>
                         </Button>
 
-                        <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource horizTextBlock}" Text="Height:" ToolTip="Target Height"/>
-                        <TextBox Grid.Row="0" Grid.Column="4" Style="{StaticResource horizTextBox}" Text="{Binding TargetHeight}" TextAlignment="Right"/>
+                        <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource formTextBlock}" Text="Height:" ToolTip="Target Height"/>
+                        <TextBox Grid.Row="0" Grid.Column="4" Style="{StaticResource formTextBox}" Text="{Binding TargetHeight}" TextAlignment="Right"/>
 
                         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource horizTextBlock}" Text="Keep Aspect Ratio:" ToolTip="Keep Aspect Ratio"/>
+                            <TextBlock Style="{StaticResource formTextBlock}" Text="Keep Aspect Ratio:" ToolTip="Keep Aspect Ratio"/>
                             <CheckBox Margin="4,8,0,0" IsChecked="{Binding KeepAspectRatio}" ToolTip="Keep Aspect Ratio" />
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource horizTextBlock}" Text="Optimize Target" ToolTip="Optimize Target after operation"/>
+                            <TextBlock Style="{StaticResource formTextBlock}" Text="Optimize Target" ToolTip="Optimize Target after operation"/>
                             <CheckBox Margin="4,8,0,0" IsChecked="{Binding OptimizeTarget}" ToolTip="Optimize Target after operation" />
                         </StackPanel>
                         <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource toolbarButton}"
@@ -178,7 +184,7 @@
                 </Expander>
                 <!--// Resize Operation Ends -->
 
-                <TextBlock Style="{StaticResource horizTextBlock}" Text="{Binding ElapsedTimeString}"/>
+                <TextBlock Style="{StaticResource formTextBlock}" Text="{Binding ElapsedTimeString}"/>
 
             </StackPanel>
         </ScrollViewer>

@@ -2,6 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:IconFitter"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behaviors="clr-namespace:IconFitter.Behaviors"
              Startup="App_Startup">
     <Application.Resources>
         <Style x:Key="toolbarButton" TargetType="{x:Type Button}">
@@ -17,12 +19,17 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="horizTextBlock" TargetType="TextBlock">
+        <Style x:Key="formTextBlock" TargetType="TextBlock">
             <Setter Property="Margin" Value="4,6" />
         </Style>
-        <Style x:Key="horizTextBox" TargetType="TextBox">
+        <Style x:Key="formTextBox" TargetType="TextBox">
             <Setter Property="Margin" Value="4,6,2,2" />
         </Style>
+        <TextBox x:Key="formTextBoxEnterKeyUpdate" Text="{Binding TargetDirectory}" Style="{StaticResource formTextBox}">
+            <i:Interaction.Behaviors>
+                <behaviors:TextBoxEnterKeyUpdateBehavior/>
+            </i:Interaction.Behaviors>
+        </TextBox>
         <Style x:Key="vertHeader" TargetType="TextBlock">
             <Setter Property="Background">
                 <Setter.Value>

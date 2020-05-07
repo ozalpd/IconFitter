@@ -1,6 +1,8 @@
 ﻿using IconLib;
 using IconLib.Models;
+using IconLib.Works;
 using System;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 
@@ -145,6 +147,25 @@ namespace IconFitter.ViewModels
         {
             return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "IconFitter");
         }
+
+
+        public ObservableCollection<ResizeWork> ResizeWorks
+        {
+            get
+            {
+                if (_resizeWorks == null)
+                    _resizeWorks = new ObservableCollection<ResizeWork>();
+                return _resizeWorks;
+            }
+            set
+            {
+                if (_resizeWorks == value)
+                    return;
+                _resizeWorks = value;
+                RaisePropertyChanged("ResizeWorks");
+            }
+        }
+        private ObservableCollection<ResizeWork> _resizeWorks;
 
         public string ResizeFileName
         {

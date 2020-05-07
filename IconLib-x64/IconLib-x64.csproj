@@ -62,6 +62,7 @@
     <Compile Include="Works\ImgWorkSet.cs" />
     <Compile Include="Works\OptimizeWork.cs" />
     <Compile Include="Works\ResizeWork.cs" />
+    <Compile Include="Works\ResizeWorkSet.cs" />
     <Compile Include="Works\Win32IconWork.cs" />
   </ItemGroup>
   <ItemGroup>

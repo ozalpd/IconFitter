@@ -11,13 +11,17 @@ namespace IconLib.Models
         public string RecentFileName { get; protected set; }
 
 
-        public static PersistableList<T> GetInstanceFromFile(string fileName, TypeNameHandling typeNameHandling = TypeNameHandling.Objects)
+        protected static PersistableList<T> GetInstanceFromFile(string fileName, Type type, TypeNameHandling typeNameHandling = TypeNameHandling.Objects)
         {
+            if (!typeof(PersistableList<T>).IsAssignableFrom(type))
+            {
+                throw new Exception("The type must be inherited from PersistableList");
+            }
             using (var reader = new StreamReader(fileName))
             {
                 var serializer = new JsonSerializer();
                 serializer.TypeNameHandling = typeNameHandling;
-                var instance = serializer.Deserialize(reader, typeof(PersistableList<T>)) as PersistableList<T>;
+                var instance = serializer.Deserialize(reader, type) as PersistableList<T>;
                 reader.Close();
 
                 return instance;
