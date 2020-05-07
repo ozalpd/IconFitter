@@ -4,7 +4,7 @@ using System.Windows.Threading;
 
 namespace IconFitter.Behaviors
 {
-    public class ZoomTextBoxBehavior : TextBoxEnterKeyUpdateBehavior
+    public class SelectAllOnFocus : NavigateNextOnEnterKey
     {
         protected override void OnAttached()
         {
@@ -27,7 +27,7 @@ namespace IconFitter.Behaviors
                 TextBox textBox = sender as TextBox;
                 var tmr = new DispatcherTimer()
                 {
-                    Interval = new System.TimeSpan(1000 * 300) //300ms
+                    Interval = new System.TimeSpan(1000 * 400) //400ms
                 };
                 tmr.Tick += (o,ev) =>
                 {

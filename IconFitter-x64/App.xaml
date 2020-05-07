@@ -21,15 +21,12 @@
         </Style>
         <Style x:Key="formTextBlock" TargetType="TextBlock">
             <Setter Property="Margin" Value="4,6" />
+            <Setter Property="Padding" Value="1,0" />
         </Style>
         <Style x:Key="formTextBox" TargetType="TextBox">
             <Setter Property="Margin" Value="4,6,2,2" />
+            <Setter Property="Padding" Value="1,0" />
         </Style>
-        <TextBox x:Key="formTextBoxEnterKeyUpdate" Text="{Binding TargetDirectory}" Style="{StaticResource formTextBox}">
-            <i:Interaction.Behaviors>
-                <behaviors:TextBoxEnterKeyUpdateBehavior/>
-            </i:Interaction.Behaviors>
-        </TextBox>
         <Style x:Key="vertHeader" TargetType="TextBlock">
             <Setter Property="Background">
                 <Setter.Value>

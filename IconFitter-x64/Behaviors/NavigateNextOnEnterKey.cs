@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace IconFitter.Behaviors
 {
-    public class TextBoxEnterKeyUpdateBehavior : Behavior<TextBox>
+    public class NavigateNextOnEnterKey : Behavior<TextBox>
     {
         protected override void OnAttached()
         {

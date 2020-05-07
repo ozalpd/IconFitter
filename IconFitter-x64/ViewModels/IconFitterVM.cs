@@ -26,7 +26,7 @@ namespace IconFitter.ViewModels
                 if (_imageFile == value)
                     return;
 
-                if (string.IsNullOrEmpty(TargetExtension)
+                if (string.IsNullOrEmpty(TargetExtension) || _imageFile == null
                     || _imageFile.Extension.Equals(TargetExtension, StringComparison.Ordinal))
                     _targetExtension = string.Empty;
 
