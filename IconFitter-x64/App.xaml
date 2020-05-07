@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:IconFitter"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:behaviors="clr-namespace:IconFitter.Behaviors"
+             xmlns:b="clr-namespace:IconFitter.Behaviors"
              Startup="App_Startup">
     <Application.Resources>
         <Style x:Key="toolbarButton" TargetType="{x:Type Button}">

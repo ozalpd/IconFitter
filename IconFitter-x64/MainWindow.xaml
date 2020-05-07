@@ -157,7 +157,7 @@
                             <RowDefinition Height="4"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource formTextBlock}" Text="Width:" ToolTip="Target Width"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource formTextBox}" Text="{Binding TargetWidth}" TextAlignment="Right"/>
+                        <b:TextBoxSelectAll Grid.Row="0" Grid.Column="1" Style="{StaticResource formTextBox}" Text="{Binding TargetWidth}" TextAlignment="Right"/>
 
                         <Button x:Name="btnSetHeightToWidth" Grid.Row="0" Grid.Column="2" Margin="2,5,0,2"
                                 ToolTip="Set Target Height to Target Width" Click="BtnSetHeightToWidth_Click" Padding="0">
@@ -167,7 +167,7 @@
                         </Button>
 
                         <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource formTextBlock}" Text="Height:" ToolTip="Target Height"/>
-                        <TextBox Grid.Row="0" Grid.Column="4" Style="{StaticResource formTextBox}" Text="{Binding TargetHeight}" TextAlignment="Right"/>
+                        <b:TextBoxSelectAll Grid.Row="0" Grid.Column="4" Style="{StaticResource formTextBox}" Text="{Binding TargetHeight}" TextAlignment="Right"/>
 
                         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
                             <TextBlock Style="{StaticResource formTextBlock}" Text="Keep Aspect Ratio:" ToolTip="Keep Aspect Ratio"/>
