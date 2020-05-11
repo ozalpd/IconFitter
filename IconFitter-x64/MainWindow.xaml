@@ -162,7 +162,7 @@
                         <Button x:Name="btnSetHeightToWidth" Grid.Row="0" Grid.Column="2" Margin="2,5,0,2"
                                 ToolTip="Set Target Height to Target Width" Click="BtnSetHeightToWidth_Click" Padding="0">
                             <Button.Content>
-                                <TextBlock Text="→" FontSize="22" Margin="0,-8,0,0"/>
+                                <TextBlock Text="🠖" FontSize="22" Margin="0,-7,0,0"/>
                             </Button.Content>
                         </Button>
 
@@ -181,9 +181,9 @@
                                 Content="{Binding Mode=OneWay, Source={StaticResource imgResize}}"
                                 Command="{Binding ResizeCommand}" ToolTip="Resize Image"/>
                         <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource toolbarButton}" HorizontalAlignment="Left"
-                                Command="{Binding AppendResize}" ToolTip="Append resize operation to works" Padding="0">
+                                Command="{Binding AppendResize}" ToolTip="Append resize operation to works" Padding="0" Margin="8,0,2,0" Width="32">
                             <Button.Content>
-                                <TextBlock Text="→" FontSize="22" Margin="0,-8,0,0"/>
+                                <TextBlock Text="🠗" FontSize="22" Margin="0,-4,0,0"/>
                             </Button.Content>
                         </Button>
                     </Grid>

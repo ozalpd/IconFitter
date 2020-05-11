@@ -13,7 +13,6 @@ namespace IconFitter.Commands
         {
             DateTime startTime = DateTime.Now;
             ResizeWork resize = GetResizeWork();
-            resize.TargetExtension = ViewModel.TargetExtension;
             resize.TargetFileName = ViewModel.ResizeFileName;
             resize.Execute(ViewModel.ImageFile, ViewModel.TargetDirectory);
 
@@ -30,7 +29,7 @@ namespace IconFitter.Commands
                 Height = ViewModel.TargetHeight,
                 Width = ViewModel.TargetWidth,
                 //SpaceAlternative = '_',
-                //TargetExtension = ViewModel.TargetExtension,
+                TargetExtension = ViewModel.TargetExtension,
                 //TargetFileName = ViewModel.ResizeFileName
             };
             return resize;
