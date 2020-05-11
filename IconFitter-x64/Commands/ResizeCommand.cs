@@ -12,6 +12,16 @@ namespace IconFitter.Commands
         public override void Execute(object parameter)
         {
             DateTime startTime = DateTime.Now;
+            ResizeWork resize = GetResizeWork();
+            resize.TargetExtension = ViewModel.TargetExtension;
+            resize.TargetFileName = ViewModel.ResizeFileName;
+            resize.Execute(ViewModel.ImageFile, ViewModel.TargetDirectory);
+
+            ViewModel.ElapsedTime = DateTime.Now.Subtract(startTime);
+        }
+
+        protected ResizeWork GetResizeWork()
+        {
             var resize = new ResizeWork()
             {
                 KeepAspectRatio = ViewModel.KeepAspectRatio,
@@ -20,12 +30,10 @@ namespace IconFitter.Commands
                 Height = ViewModel.TargetHeight,
                 Width = ViewModel.TargetWidth,
                 //SpaceAlternative = '_',
-                TargetExtension = ViewModel.TargetExtension,
-                TargetFileName = ViewModel.ResizeFileName
+                //TargetExtension = ViewModel.TargetExtension,
+                //TargetFileName = ViewModel.ResizeFileName
             };
-            resize.Execute(ViewModel.ImageFile, ViewModel.TargetDirectory);
-
-            ViewModel.ElapsedTime = DateTime.Now.Subtract(startTime);
+            return resize;
         }
     }
 }

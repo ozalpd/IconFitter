@@ -21,6 +21,15 @@ namespace IconLib.Works
             get { return _targetExtension; }
             set
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                    _targetExtension = string.Empty;
+                    return;
+                }
+
+                if (value.Equals(_targetExtension))
+                    return;
+
                 _targetExtension = value.Trim();
                 if (!_targetExtension.StartsWith("."))
                     _targetExtension = string.Format(".{0}", _targetExtension);

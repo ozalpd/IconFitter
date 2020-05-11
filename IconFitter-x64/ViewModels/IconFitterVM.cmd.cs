@@ -19,6 +19,20 @@ namespace IconFitter.ViewModels
         }
         private TimeSpan? _elapsedTime;
 
+
+
+        public AppendResizeCommand AppendResize
+        {
+            set { _appendResize = value; }
+            get
+            {
+                if (_appendResize == null)
+                    _appendResize = new AppendResizeCommand(this);
+                return _appendResize;
+            }
+        }
+        private AppendResizeCommand _appendResize;
+
         public string ElapsedTimeString
         {
             get

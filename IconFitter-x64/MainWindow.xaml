@@ -9,7 +9,7 @@
         xmlns:b="clr-namespace:IconFitter.Behaviors"
         mc:Ignorable="d"
         Title="Icon Fitter" Icon="ArtAssets\App-Icon.ico"
-        Height="400" Width="900" MinHeight="320" MinWidth="640"
+        Height="480" Width="900" MinHeight="320" MinWidth="640"
         Loaded="Window_Loaded" Closing="Window_Closing" SizeChanged="Window_SizeChanged">
     <Window.DataContext>
         <vm:IconFitterVM />
@@ -177,12 +177,75 @@
                             <TextBlock Style="{StaticResource formTextBlock}" Text="Optimize Target" ToolTip="Optimize Target after operation"/>
                             <CheckBox Margin="4,8,0,0" IsChecked="{Binding OptimizeTarget}" ToolTip="Optimize Target after operation" />
                         </StackPanel>
-                        <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource toolbarButton}"
+                        <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource toolbarButton}"
                                 Content="{Binding Mode=OneWay, Source={StaticResource imgResize}}"
-                                Command="{Binding ResizeCommand}" ToolTip="Resize Image" HorizontalAlignment="Left"/>
+                                Command="{Binding ResizeCommand}" ToolTip="Resize Image"/>
+                        <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource toolbarButton}" HorizontalAlignment="Left"
+                                Command="{Binding AppendResize}" ToolTip="Append resize operation to works" Padding="0">
+                            <Button.Content>
+                                <TextBlock Text="→" FontSize="22" Margin="0,-8,0,0"/>
+                            </Button.Content>
+                        </Button>
                     </Grid>
                 </Expander>
                 <!--// Resize Operation Ends -->
+
+                <Expander IsExpanded="True" Padding="0" Margin="0" BorderBrush="Gray" BorderThickness="1">
+                    <Expander.Header>
+                        <StackPanel Margin="-24,0,0,0"
+                                    Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}, Path=ActualWidth}">
+                            <TextBlock Margin="22,0,0,0" Padding="2,2,2,4" Style="{StaticResource vertHeader}"
+                                       Text="Resize Works" TextAlignment="Center" />
+                        </StackPanel>
+                    </Expander.Header>
+                    <DataGrid ItemsSource="{Binding ResizeWorks}" AutoGenerateColumns="False" CanUserAddRows="False" AddingNewItem="ResizeWorksGrid_AddingNewItem" >
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Size" Width="120">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Width}" Width="48" TextAlignment="Right"/>
+                                                <TextBlock Text="x" Margin="8,0"/>
+                                                <TextBlock Text="{Binding Height}" Width="48"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource formTextBlock}" Width="80" Text="Aspect Ratio:" ToolTip="Keep Aspect Ratio"/>
+                                                <CheckBox Margin="4,8,0,0" IsChecked="{Binding KeepAspectRatio}" IsEnabled="False" ToolTip="Keep Aspect Ratio" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource formTextBlock}" Width="80" Text="Optimize:" ToolTip="Optimize"/>
+                                                <CheckBox Margin="4,8,0,0" IsChecked="{Binding Optimize}" IsEnabled="False" ToolTip="Optimize" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBox Text="{Binding Width}" Width="48" TextAlignment="Right"/>
+                                                <TextBlock Text="x" Margin="8,0"/>
+                                                <TextBox Text="{Binding Height}" Width="48" TextAlignment="Right"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource formTextBlock}" Width="80" Text="Aspect Ratio:" ToolTip="Keep Aspect Ratio"/>
+                                                <CheckBox Margin="4,8,0,0" IsChecked="{Binding KeepAspectRatio}" ToolTip="Keep Aspect Ratio" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Style="{StaticResource formTextBlock}" Width="80" Text="Optimize:" ToolTip="Optimize"/>
+                                                <CheckBox Margin="4,8,0,0" IsChecked="{Binding Optimize}" ToolTip="Optimize" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding Quality}" ClipboardContentBinding="{x:Null}" Header="Quality"/>
+                            <DataGridTextColumn Binding="{Binding TargetSubFolder}" ClipboardContentBinding="{x:Null}" Header="Sub Folder"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+                <!--// ResizeWorkSet Ends -->
 
                 <TextBlock Style="{StaticResource formTextBlock}" Text="{Binding ElapsedTimeString}"/>
 

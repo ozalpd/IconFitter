@@ -1,10 +1,12 @@
 ﻿using IconFitter.Models;
 using IconFitter.ViewModels;
 using IconLib.Models;
+using IconLib.Works;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace IconFitter
@@ -133,6 +135,18 @@ namespace IconFitter
             {
                 ViewModel.Zoom = 100.0;
             }
+        }
+
+        private void ResizeWorksGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
+        {
+            var work = new ResizeWork()
+            {
+                Quality = 90,
+                KeepAspectRatio = true,
+                Optimize = true,
+                SpaceAlternative = '_'
+            };
+            e.NewItem = work;
         }
     }
 }
