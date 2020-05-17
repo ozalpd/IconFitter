@@ -9,7 +9,7 @@
         xmlns:b="clr-namespace:IconFitter.Behaviors"
         mc:Ignorable="d"
         Title="Icon Fitter" Icon="ArtAssets\App-Icon.ico"
-        Height="480" Width="900" MinHeight="320" MinWidth="640"
+        Height="540" Width="900" MinHeight="320" MinWidth="640"
         Loaded="Window_Loaded" Closing="Window_Closing" SizeChanged="Window_SizeChanged">
     <Window.DataContext>
         <vm:IconFitterVM />
@@ -85,8 +85,8 @@
                 <TextBlock Grid.ColumnSpan="5" Text="Source Image" TextAlignment="Center" Style="{StaticResource vertHeader}" Margin="0,2,2,4"/>
                 <Grid Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="4">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="28"/>
-                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="26"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="48"/>
@@ -96,7 +96,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Style="{StaticResource formTextBlock}" Text="Zoom:" ToolTip="Target Width"/>
-                    <ComboBox Grid.Column="2" Grid.ColumnSpan="2" Margin="4,6,4,2" ItemsSource="{Binding ZoomOptions}" SelectedItem="{Binding ZoomText}"/>
+                    <ComboBox Grid.Column="2" Grid.ColumnSpan="2" Margin="4,4,4,2" ItemsSource="{Binding ZoomOptions}" SelectedItem="{Binding ZoomText}"/>
                     <TextBox Grid.Column="2" Style="{StaticResource formTextBox}" Text="{Binding ZoomText}">
                         <i:Interaction.Behaviors>
                             <b:SelectAllOnFocus/>
@@ -109,8 +109,8 @@
                 <TextBlock Grid.ColumnSpan="5" Text="Target Image" TextAlignment="Center" Style="{StaticResource vertHeader}" Margin="0,2,2,4"/>
                 <Grid Margin="0,0,0,4">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="28"/>
-                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="26"/>
+                        <RowDefinition Height="26"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80"/>
@@ -151,15 +151,15 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="28"/>
-                            <RowDefinition Height="28"/>
-                            <RowDefinition Height="28"/>
+                            <RowDefinition Height="24"/>
+                            <RowDefinition Height="24"/>
+                            <RowDefinition Height="26"/>
                             <RowDefinition Height="4"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource formTextBlock}" Text="Width:" ToolTip="Target Width"/>
                         <b:TextBoxSelectAll Grid.Row="0" Grid.Column="1" Style="{StaticResource formTextBox}" Text="{Binding TargetWidth}" TextAlignment="Right"/>
 
-                        <Button x:Name="btnSetHeightToWidth" Grid.Row="0" Grid.Column="2" Margin="2,5,0,2"
+                        <Button x:Name="btnSetHeightToWidth" Grid.Row="0" Grid.Column="2" Margin="2,2,0,1"
                                 ToolTip="Set Target Height to Target Width" Click="BtnSetHeightToWidth_Click" Padding="0">
                             <Button.Content>
                                 <TextBlock Text="🠖" FontSize="22" Margin="0,-7,0,0"/>
@@ -171,16 +171,16 @@
 
                         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
                             <TextBlock Style="{StaticResource formTextBlock}" Text="Keep Aspect Ratio:" ToolTip="Keep Aspect Ratio"/>
-                            <CheckBox Margin="4,8,0,0" IsChecked="{Binding KeepAspectRatio}" ToolTip="Keep Aspect Ratio" />
+                            <CheckBox Style="{StaticResource formCheckBox}" IsChecked="{Binding KeepAspectRatio}" ToolTip="Keep Aspect Ratio" />
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Orientation="Horizontal">
                             <TextBlock Style="{StaticResource formTextBlock}" Text="Optimize Target" ToolTip="Optimize Target after operation"/>
-                            <CheckBox Margin="4,8,0,0" IsChecked="{Binding OptimizeTarget}" ToolTip="Optimize Target after operation" />
+                            <CheckBox Style="{StaticResource formCheckBox}" IsChecked="{Binding OptimizeTarget}" ToolTip="Optimize Target after operation" />
                         </StackPanel>
-                        <Button Grid.Row="2" Grid.Column="1" Style="{StaticResource toolbarButton}"
+                        <Button Grid.Row="2" Grid.Column="3" Style="{StaticResource toolbarButton}" HorizontalAlignment="Left"
                                 Content="{Binding Mode=OneWay, Source={StaticResource imgResize}}"
                                 Command="{Binding ResizeCommand}" ToolTip="Resize Image"/>
-                        <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource toolbarButton}" HorizontalAlignment="Left"
+                        <Button Grid.Row="2" Grid.Column="4" Style="{StaticResource toolbarButton}" HorizontalAlignment="Right"
                                 Command="{Binding AppendResize}" ToolTip="Append resize operation to works" Padding="0" Margin="8,0,2,0" Width="32">
                             <Button.Content>
                                 <TextBlock Text="🠗" FontSize="22" Margin="0,-4,0,0"/>
@@ -198,50 +198,120 @@
                                        Text="Resize Works" TextAlignment="Center" />
                         </StackPanel>
                     </Expander.Header>
-                    <DataGrid ItemsSource="{Binding ResizeWorks}" AutoGenerateColumns="False" CanUserAddRows="False" AddingNewItem="ResizeWorksGrid_AddingNewItem" >
+                    <DataGrid ItemsSource="{Binding ResizeWorks}" SelectedItem="{Binding SelectedResizeWork}" AutoGenerateColumns="False" CanUserAddRows="False">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Size" Width="120">
+                            <DataGridTemplateColumn Width="32">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Vertical">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding Width}" Width="48" TextAlignment="Right"/>
-                                                <TextBlock Text="x" Margin="8,0"/>
-                                                <TextBlock Text="{Binding Height}" Width="48"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Style="{StaticResource formTextBlock}" Width="80" Text="Aspect Ratio:" ToolTip="Keep Aspect Ratio"/>
-                                                <CheckBox Margin="4,8,0,0" IsChecked="{Binding KeepAspectRatio}" IsEnabled="False" ToolTip="Keep Aspect Ratio" />
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Style="{StaticResource formTextBlock}" Width="80" Text="Optimize:" ToolTip="Optimize"/>
-                                                <CheckBox Margin="4,8,0,0" IsChecked="{Binding Optimize}" IsEnabled="False" ToolTip="Optimize" />
-                                            </StackPanel>
+                                        <DataTemplate.Resources>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Margin" Value="0,0,0,2"/>
+                                                <Setter Property="Padding" Value="0"/>
+                                            </Style>
+                                        </DataTemplate.Resources>
+                                        <StackPanel>
+                                            <Button x:Name="btnUp" ToolTip="Move up" Click="btnUp_Click">
+                                                <Button.Content>
+                                                    <TextBlock Text="🠕" FontSize="22" Margin="0,-4,0,0"/>
+                                                </Button.Content>
+                                            </Button>
+                                            <Button x:Name="btnDown" ToolTip="Move down" Click="btnDown_Click">
+                                                <Button.Content>
+                                                    <TextBlock Text="🠗" FontSize="22" Margin="0,-4,0,0"/>
+                                                </Button.Content>
+                                            </Button>
                                         </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <DataTemplate.Resources>
+                                            <Style TargetType="CheckBox">
+                                                <Setter Property="Margin" Value="4,8,2,0" />
+                                            </Style>
+                                            <Style TargetType="TextBox">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                                <Setter Property="Background" Value="#A0FFFFFF"/>
+                                                <Setter Property="BorderBrush" Value="#8888"/>
+                                                <Setter Property="Margin" Value="4,4,2,2" />
+                                                <Setter Property="Padding" Value="1,0" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="TextBox">
+                                                            <Border Name="Bd" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                                                <ScrollViewer Name="PART_ContentHost" Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                            </Border>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsEnabled" Value="False">
+                                                                    <Setter TargetName="PART_ContentHost" Property="Background" Value="#A0FFFFFF"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </DataTemplate.Resources>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="48"/>
+                                                <ColumnDefinition Width="16"/>
+                                                <ColumnDefinition Width="16"/>
+                                                <ColumnDefinition Width="32"/>
+                                                <ColumnDefinition Width="80"/>
+                                                <ColumnDefinition Width="48"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="24"/>
+                                                <RowDefinition Height="24"/>
+                                                <RowDefinition Height="26"/>
+                                                <RowDefinition Height="26"/>
+                                                <RowDefinition Height="26"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBox Grid.Row="0" Grid.Column="0" TextAlignment="Right" Text="{Binding Width}" ToolTip="Width of resized image"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource formTextBlock}" Text="x" />
+                                            <TextBox Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding Height}" ToolTip="Height of resized image"/>
+
+                                            <TextBlock Grid.Row="0" Grid.Column="4" Style="{StaticResource formTextBlock}" Text="Aspect Ratio:" ToolTip="Keep aspect ratio of resized image"/>
+                                            <CheckBox  Grid.Row="0" Grid.Column="5" IsChecked="{Binding KeepAspectRatio}" ToolTip="Keep aspect ratio of resized image"/>
+
+                                            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource formTextBlock}" Text="Quality:" ToolTip="Quality of resized image"/>
+                                            <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding Quality}" ToolTip="Quality of resized image"/>
+
+                                            <TextBlock Grid.Row="1" Grid.Column="4" Style="{StaticResource formTextBlock}" Width="80" Text="Optimize:" ToolTip="Optimize resized image"/>
+                                            <CheckBox Grid.Row="1" Grid.Column="5" IsChecked="{Binding Optimize}" ToolTip="Optimize resized image"/>
+
+                                            <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource formTextBlock}" Text="Space Alt:" ToolTip="Replace space characters in file name of resized image with this character"/>
+                                            <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SpaceAlternative}" ToolTip="Replace space characters in file name of resized image with this character"/>
+
+                                            <TextBlock Grid.Row="2" Grid.Column="4" Style="{StaticResource formTextBlock}" Text="Extension:" ToolTip="Extension of resized image"/>
+                                            <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding TargetExtension}" ToolTip="Extension of resized image"/>
+
+                                            <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource formTextBlock}" Text="Fıle Name:" ToolTip="File name of resulting image"/>
+                                            <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="5" Text="{Binding TargetFileName}" ToolTip="File name of resulting image"/>
+
+                                            <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Style="{StaticResource formTextBlock}" Text="Sub Folder:" ToolTip="Sub folder name under Target Folder"/>
+                                            <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="5" Text="{Binding TargetSubFolder}" ToolTip="Sub folder name under Target Folder"/>
+                                        </Grid>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Vertical">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBox Text="{Binding Width}" Width="48" TextAlignment="Right"/>
-                                                <TextBlock Text="x" Margin="8,0"/>
-                                                <TextBox Text="{Binding Height}" Width="48" TextAlignment="Right"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Style="{StaticResource formTextBlock}" Width="80" Text="Aspect Ratio:" ToolTip="Keep Aspect Ratio"/>
-                                                <CheckBox Margin="4,8,0,0" IsChecked="{Binding KeepAspectRatio}" ToolTip="Keep Aspect Ratio" />
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Style="{StaticResource formTextBlock}" Width="80" Text="Optimize:" ToolTip="Optimize"/>
-                                                <CheckBox Margin="4,8,0,0" IsChecked="{Binding Optimize}" ToolTip="Optimize" />
-                                            </StackPanel>
-                                        </StackPanel>
+                                        <DataTemplate.Resources>
+                                            <Style TargetType="CheckBox">
+                                                <Setter Property="Margin" Value="4,8,2,0" />
+                                            </Style>
+                                            <Style TargetType="TextBox">
+                                                <Setter Property="Margin" Value="4,4,2,2" />
+                                                <Setter Property="Padding" Value="1,0" />
+                                            </Style>
+                                        </DataTemplate.Resources>
+                                        <ContentControl Content="{StaticResource ResizeWorkGrid}" Background="#FFD8F0FF"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Binding="{Binding Quality}" ClipboardContentBinding="{x:Null}" Header="Quality"/>
-                            <DataGridTextColumn Binding="{Binding TargetSubFolder}" ClipboardContentBinding="{x:Null}" Header="Sub Folder"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Expander>

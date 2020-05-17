@@ -79,6 +79,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Behaviors\AllowOneChar.cs" />
     <Compile Include="Behaviors\NavigateNextOnEnterKey.cs" />
     <Compile Include="Behaviors\SelectAllOnFocus.cs" />
     <Compile Include="Behaviors\TextBoxEnterNavg.cs" />

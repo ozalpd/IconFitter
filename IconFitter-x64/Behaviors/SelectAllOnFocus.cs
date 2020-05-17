@@ -27,7 +27,7 @@ namespace IconFitter.Behaviors
                 TextBox textBox = sender as TextBox;
                 var tmr = new DispatcherTimer()
                 {
-                    Interval = new System.TimeSpan(1000 * 400) //400ms
+                    Interval = new System.TimeSpan(1000 * 500) //500ms
                 };
                 tmr.Tick += (o,ev) =>
                 {

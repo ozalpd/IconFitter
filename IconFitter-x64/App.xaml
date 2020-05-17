@@ -6,6 +6,8 @@
              xmlns:b="clr-namespace:IconFitter.Behaviors"
              Startup="App_Startup">
     <Application.Resources>
+        <SolidColorBrush x:Key="DisabledForegroundBrush" Color="Black" />
+        <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="#80FFFFFF" />
         <Style x:Key="toolbarButton" TargetType="{x:Type Button}">
             <Setter Property="Height" Value="26" />
             <Setter Property="Width" Value="26" />
@@ -19,12 +21,16 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="formCheckBox" TargetType="CheckBox">
+            <Setter Property="Margin" Value="4,8,2,0" />
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
         <Style x:Key="formTextBlock" TargetType="TextBlock">
-            <Setter Property="Margin" Value="4,6" />
+            <Setter Property="Margin" Value="4,6,4,4" />
             <Setter Property="Padding" Value="1,0" />
         </Style>
         <Style x:Key="formTextBox" TargetType="TextBox">
-            <Setter Property="Margin" Value="4,6,2,2" />
+            <Setter Property="Margin" Value="4,4,2,2" />
             <Setter Property="Padding" Value="1,0" />
         </Style>
         <Style x:Key="vertHeader" TargetType="TextBlock">
@@ -42,6 +48,76 @@
             <Setter Property="TextAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Stretch" />
         </Style>
+        <Grid x:Key="ResizeWorkGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="48"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="32"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="48"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="26"/>
+                <RowDefinition Height="26"/>
+                <RowDefinition Height="26"/>
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="0" Grid.Column="0" TextAlignment="Right" Text="{Binding Width}" ToolTip="Width of resized image">
+                <i:Interaction.Behaviors>
+                    <b:SelectAllOnFocus/>
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource formTextBlock}" Text="x" />
+            <TextBox Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding Height}" ToolTip="Height of resized image">
+                <i:Interaction.Behaviors>
+                    <b:SelectAllOnFocus/>
+                </i:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBlock Grid.Row="0" Grid.Column="4" Style="{StaticResource formTextBlock}" Text="Aspect Ratio:" ToolTip="Keep aspect ratio of resized image"/>
+            <CheckBox  Grid.Row="0" Grid.Column="5" IsChecked="{Binding KeepAspectRatio}" ToolTip="Keep aspect ratio of resized image"/>
+
+            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource formTextBlock}" Text="Quality:" ToolTip="Quality of resized image"/>
+            <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding Quality}" ToolTip="Quality of resized image">
+                <i:Interaction.Behaviors>
+                    <b:SelectAllOnFocus/>
+                </i:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBlock Grid.Row="1" Grid.Column="4" Style="{StaticResource formTextBlock}" Width="80" Text="Optimize:" ToolTip="Optimize resized image"/>
+            <CheckBox Grid.Row="1" Grid.Column="5" IsChecked="{Binding Optimize}" ToolTip="Optimize resized image"/>
+
+            <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource formTextBlock}" Text="Space Alt:" ToolTip="Replace space characters in file name of resized image with this character"/>
+            <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding SpaceAlternative}" ToolTip="Replace space characters in file name of resized image with this character">
+                <i:Interaction.Behaviors>
+                    <b:AllowOneChar/>
+                </i:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBlock Grid.Row="2" Grid.Column="4" Style="{StaticResource formTextBlock}" Text="Extension:" ToolTip="Extension of resized image"/>
+            <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding TargetExtension}" ToolTip="Extension of resized image">
+                <i:Interaction.Behaviors>
+                    <b:SelectAllOnFocus/>
+                </i:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource formTextBlock}" Text="Fıle Name:" ToolTip="File name of resulting image"/>
+            <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="5" Text="{Binding TargetFileName}" ToolTip="File name of resulting image">
+                <i:Interaction.Behaviors>
+                    <b:SelectAllOnFocus/>
+                </i:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Style="{StaticResource formTextBlock}" Text="Sub Folder:" ToolTip="Sub folder name under Target Folder"/>
+            <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="5" Text="{Binding TargetSubFolder}" ToolTip="Sub folder name under Target Folder">
+                <i:Interaction.Behaviors>
+                    <b:SelectAllOnFocus/>
+                </i:Interaction.Behaviors>
+            </TextBox>
+        </Grid>
         <Style TargetType="GridSplitter">
             <Style.Resources>
                 <Style TargetType="Rectangle">

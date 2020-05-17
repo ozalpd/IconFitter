@@ -76,6 +76,35 @@ namespace IconFitter
             _settings.SaveToFile(settingsFile);
         }
 
+        private void btnDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.SelectedResizeWork == null || !(ViewModel.ResizeWorks.Count > 0))
+                return;
+
+            var work = ViewModel.SelectedResizeWork;
+            int idx = ViewModel.ResizeWorks.IndexOf(work);
+            idx++;
+            if (idx < ViewModel.ResizeWorks.Count)
+            {
+                ViewModel.ResizeWorks.Move(idx - 1, idx);
+                ViewModel.SelectedResizeWork = work;
+            }
+        }
+
+        private void btnUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (ViewModel.SelectedResizeWork == null || !(ViewModel.ResizeWorks.Count > 0))
+                return;
+
+            var work = ViewModel.SelectedResizeWork;
+            int idx = ViewModel.ResizeWorks.IndexOf(work);
+            if (idx > 0)
+            {
+                ViewModel.ResizeWorks.Move(idx, idx - 1);
+                ViewModel.SelectedResizeWork = work;
+            }
+        }
+
         private void BtnSetHeightToWidth_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.TargetHeight = ViewModel.TargetWidth;
@@ -135,18 +164,6 @@ namespace IconFitter
             {
                 ViewModel.Zoom = 100.0;
             }
-        }
-
-        private void ResizeWorksGrid_AddingNewItem(object sender, AddingNewItemEventArgs e)
-        {
-            var work = new ResizeWork()
-            {
-                Quality = 90,
-                KeepAspectRatio = true,
-                Optimize = true,
-                SpaceAlternative = '_'
-            };
-            e.NewItem = work;
         }
     }
 }

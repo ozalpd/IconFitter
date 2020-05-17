@@ -176,6 +176,18 @@ namespace IconFitter.ViewModels
         }
         private ObservableCollection<ResizeWork> _resizeWorks;
 
+
+        public ResizeWork SelectedResizeWork
+        {
+            get { return _selResizeWork; }
+            set
+            {
+                _selResizeWork = value;
+                RaisePropertyChanged("SelectedResizeWork");
+            }
+        }
+        private ResizeWork _selResizeWork;
+
         public string ResizeFileName
         {
             get
