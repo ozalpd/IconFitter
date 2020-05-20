@@ -4,7 +4,7 @@ using System;
 
 namespace IconFitter.Commands
 {
-    public class ResizeCommand : AbstractImgWorkCommand
+    public class ResizeCommand : ImgWorkCommand
     {
         public ResizeCommand(IconFitterVM viewModel) : base(viewModel) { }
 
@@ -13,7 +13,7 @@ namespace IconFitter.Commands
         {
             DateTime startTime = DateTime.Now;
             ResizeWork resize = GetResizeWork();
-            resize.TargetFileName = ViewModel.ResizeFileName;
+            resize.TargetFileName = ViewModel.GetResizeFileName(resize);
             resize.Execute(ViewModel.ImageFile, ViewModel.TargetDirectory);
 
             ViewModel.ElapsedTime = DateTime.Now.Subtract(startTime);

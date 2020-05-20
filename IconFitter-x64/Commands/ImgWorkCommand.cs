@@ -5,9 +5,9 @@ using IconLib.Works;
 
 namespace IconFitter.Commands
 {
-    public abstract class AbstractImgWorkCommand : AbstractCommand
+    public abstract class ImgWorkCommand : AbstractCommand
     {
-        protected AbstractImgWorkCommand(IconFitterVM viewModel) : base(viewModel)
+        protected ImgWorkCommand(IconFitterVM viewModel) : base(viewModel)
         {
             viewModel.PropertyChanged += OnViewModelPropertyChanged;
         }

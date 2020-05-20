@@ -30,6 +30,23 @@ namespace IconLib.Works
         /// </summary>
         public int Quality { get; set; }
 
+        public ResizeWork Clone()
+        {
+            return new ResizeWork()
+            {
+                Height = Height,
+                Width = Width,
+                KeepAspectRatio = KeepAspectRatio,
+                Optimize = Optimize,
+                Quality = Quality,
+                SpaceAlternative = SpaceAlternative,
+                TargetExtension = TargetExtension,
+                TargetFileName = TargetFileName,
+                TargetSubFolder = TargetSubFolder
+            };
+        }
+
+
         protected override void ExecuteWork(ImageFileInfo sourceImage, string fullTargetName)
         {
             using (var image = new MagickImage(sourceImage.FullName))

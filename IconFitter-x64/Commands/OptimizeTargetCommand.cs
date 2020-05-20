@@ -5,7 +5,7 @@ using System.IO;
 
 namespace IconFitter.Commands
 {
-    public class OptimizeTargetCommand : AbstractImgWorkCommand
+    public class OptimizeTargetCommand : ImgWorkCommand
     {
         public OptimizeTargetCommand(IconFitterVM viewModel) : base(viewModel) { }
 

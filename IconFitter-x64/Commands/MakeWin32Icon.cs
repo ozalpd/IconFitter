@@ -4,7 +4,7 @@ using System;
 
 namespace IconFitter.Commands
 {
-    public class MakeWin32Icon : AbstractImgWorkCommand
+    public class MakeWin32Icon : ImgWorkCommand
     {
         public MakeWin32Icon(IconFitterVM viewModel) : base(viewModel) { }
 

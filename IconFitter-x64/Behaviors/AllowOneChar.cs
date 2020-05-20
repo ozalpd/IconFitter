@@ -46,7 +46,19 @@ namespace IconFitter.Behaviors
 
         private bool IsValid(char c)
         {
-            return c.Equals('-') || c.Equals('_') || c.Equals('.');
+            return ValidCharacters.Contains(c);
         }
+
+        public char[] ValidCharacters
+        {
+            set { _validChars = value; }
+            get
+            {
+                if (_validChars == null)
+                    _validChars = new char[] { '-', '_', '.' };
+                return _validChars;
+            }
+        }
+        private char[] _validChars;
     }
 }

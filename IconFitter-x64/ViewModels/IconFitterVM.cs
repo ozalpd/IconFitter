@@ -3,6 +3,7 @@ using IconLib.Models;
 using IconLib.Works;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.IO;
 
@@ -148,6 +149,26 @@ namespace IconFitter.ViewModels
                 Directory.CreateDirectory(TargetDirectory);
         }
 
+        public string GetResizeFileName(ResizeWork resizeWork)
+        {
+            if (ImageFile == null)
+                return string.Empty;
+
+            if (resizeWork.Width == resizeWork.Height)
+            {
+                return string.Format("{0}-{1}",
+                                   Path.GetFileNameWithoutExtension(ImageFile.Name),
+                                   resizeWork.Height);
+            }
+            else
+            {
+                return string.Format("{0}-{1}x{2}",
+                                   Path.GetFileNameWithoutExtension(ImageFile.Name),
+                                   resizeWork.Width,
+                                   resizeWork.Height);
+            }
+        }
+
         /// <summary>
         /// Gets a default TargetDirectory
         /// </summary>
@@ -158,22 +179,51 @@ namespace IconFitter.ViewModels
         }
 
 
+        public string RecentResizeSetFile
+        {
+            get { return _recentResizeSetFile; }
+            set
+            {
+                if (_recentResizeSetFile == value)
+                    return;
+                _recentResizeSetFile = value;
+                RaisePropertyChanged("RecentResizeSetFile");
+            }
+        }
+        private string _recentResizeSetFile;
+
+
         public ObservableCollection<ResizeWork> ResizeWorks
         {
             get
             {
                 if (_resizeWorks == null)
+                {
                     _resizeWorks = new ObservableCollection<ResizeWork>();
+                    _resizeWorks.CollectionChanged += ResizeWorks_CollectionChanged;
+                }
                 return _resizeWorks;
             }
             set
             {
                 if (_resizeWorks == value)
                     return;
+
+                if (_resizeWorks != null)
+                    _resizeWorks.CollectionChanged -= ResizeWorks_CollectionChanged;
+
                 _resizeWorks = value;
+                if (_resizeWorks != null)
+                    _resizeWorks.CollectionChanged += ResizeWorks_CollectionChanged;
                 RaisePropertyChanged("ResizeWorks");
             }
         }
+
+        private void ResizeWorks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            RaisePropertyChanged("ResizeWorks");
+        }
+
         private ObservableCollection<ResizeWork> _resizeWorks;
 
 
@@ -187,29 +237,6 @@ namespace IconFitter.ViewModels
             }
         }
         private ResizeWork _selResizeWork;
-
-        public string ResizeFileName
-        {
-            get
-            {
-                if (ImageFile == null)
-                    return string.Empty;
-
-                if (TargetWidth == TargetHeight)
-                {
-                    return string.Format("{0}-{1}",
-                                       Path.GetFileNameWithoutExtension(ImageFile.Name),
-                                       TargetHeight);
-                }
-                else
-                {
-                    return string.Format("{0}-{1}x{2}",
-                                       Path.GetFileNameWithoutExtension(ImageFile.Name),
-                                       TargetWidth,
-                                       TargetHeight);
-                }
-            }
-        }
 
         public int TargetQuality
         {

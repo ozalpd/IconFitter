@@ -21,6 +21,7 @@
         <BitmapImage x:Key="uriOpen" UriSource="ArtAssets/open-16.png"/>
         <BitmapImage x:Key="uriOptimize24" UriSource="ArtAssets/optimize-24.png"/>
         <BitmapImage x:Key="uriResize24" UriSource="ArtAssets/Resize-24.png"/>
+        <BitmapImage x:Key="uriResize16" UriSource="ArtAssets/Resize-16.png"/>
         <BitmapImage x:Key="uriSave" UriSource="ArtAssets/save-16.png"/>
         <Image x:Key="imgIco" Source="{StaticResource uriIco24}" Stretch="None" Style="{StaticResource buttonImage}"/>
         <Image x:Key="imgImage" Source="{StaticResource uriImage24}" Stretch="None" Style="{StaticResource buttonImage}"/>
@@ -28,6 +29,7 @@
         <Image x:Key="imgOptimize" Source="{StaticResource uriOptimize24}" Stretch="None" Style="{StaticResource buttonImage}"/>
         <Image x:Key="imgOpen" Source="{StaticResource uriOpen}" Stretch="None" Style="{StaticResource buttonImage}"/>
         <Image x:Key="imgResize" Source="{StaticResource uriResize24}" Stretch="None" Style="{StaticResource buttonImage}"/>
+        <Image x:Key="imgResize16" Source="{StaticResource uriResize16}" Stretch="None" Style="{StaticResource buttonImage}"/>
         <Image x:Key="imgSave" Source="{StaticResource uriSave}" Stretch="None" Style="{StaticResource buttonImage}"/>
     </Window.Resources>
     <Grid>
@@ -73,7 +75,7 @@
                 </MenuItem>
             </Menu>
 
-            <Button Command="{Binding OpenCommand}" Content="{Binding Mode=OneWay, Source={StaticResource imgImage}}" ToolTip="Open Image" Style="{StaticResource toolbarButton}"/>
+            <Button Command="{Binding OpenImageCommand}" Content="{Binding Mode=OneWay, Source={StaticResource imgImage}}" ToolTip="Open Image" Style="{StaticResource toolbarButton}"/>
             <Button Command="{Binding OptimizeTargetImage}" Content="{Binding Mode=OneWay, Source={StaticResource imgOptimize}}" ToolTip="Optimize Image" Style="{StaticResource toolbarButton}"/>
             <Button Command="{Binding MakeWin32Icon}" Content="{Binding Mode=OneWay, Source={StaticResource imgIco}}" ToolTip="Make Win32 Icon File" Style="{StaticResource toolbarButton}"/>
         </StackPanel>
@@ -190,6 +192,7 @@
                 </Expander>
                 <!--// Resize Operation Ends -->
 
+                <!-- ResizeWorks Collection -->
                 <Expander IsExpanded="True" Padding="0" Margin="0" BorderBrush="Gray" BorderThickness="1">
                     <Expander.Header>
                         <StackPanel Margin="-24,0,0,0"
@@ -198,7 +201,14 @@
                                        Text="Resize Works" TextAlignment="Center" />
                         </StackPanel>
                     </Expander.Header>
-                    <DataGrid ItemsSource="{Binding ResizeWorks}" SelectedItem="{Binding SelectedResizeWork}" AutoGenerateColumns="False" CanUserAddRows="False">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Width="26" Margin="-4,0" Content="{Binding Mode=OneWay, Source={StaticResource imgOpen}}" Command="{Binding OpenResizeWorkSetCmd}" ToolTip="Open a resize work set"/>
+                            <Button Width="26" Content="{Binding Mode=OneWay, Source={StaticResource imgSave}}" Command="{Binding SaveResizeWorks}" ToolTip="Save resize work set"/>
+                            <Button Width="26" Content="{Binding Mode=OneWay, Source={StaticResource imgResize16}}"
+                                Command="{Binding ExecuteResizeWorks}" ToolTip="Execute Resize Works"/>
+                        </StackPanel>
+                        <DataGrid ItemsSource="{Binding ResizeWorks}" SelectedItem="{Binding SelectedResizeWork}" AutoGenerateColumns="False" CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="32">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -314,8 +324,9 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
+                </StackPanel>
                 </Expander>
-                <!--// ResizeWorkSet Ends -->
+                <!--// ResizeWorks Collection Ends -->
 
                 <TextBlock Style="{StaticResource formTextBlock}" Text="{Binding ElapsedTimeString}"/>
 

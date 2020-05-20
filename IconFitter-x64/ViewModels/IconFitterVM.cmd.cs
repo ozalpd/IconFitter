@@ -1,4 +1,5 @@
 ﻿using IconFitter.Commands;
+using IconFitter.Models;
 using IconLib;
 using System;
 using System.ComponentModel;
@@ -41,6 +42,20 @@ namespace IconFitter.ViewModels
             }
         }
 
+
+        public ExecuteResizeWorks ExecuteResizeWorks
+        {
+            set { _execResizeWorks = value; }
+            get
+            {
+                if (_execResizeWorks == null)
+                    _execResizeWorks = new ExecuteResizeWorks(this);
+                return _execResizeWorks;
+            }
+        }
+        private ExecuteResizeWorks _execResizeWorks;
+
+
         public MakeWin32Icon MakeWin32Icon
         {
             get
@@ -52,16 +67,27 @@ namespace IconFitter.ViewModels
         }
         private MakeWin32Icon _makeWin32icon;
 
-        public OpenCommand OpenCommand
+        public OpenCommand OpenImageCommand
         {
             get
             {
-                if (_openCommand == null)
-                    _openCommand = new OpenCommand(this);
-                return _openCommand;
+                if (_openImageCommand == null)
+                    _openImageCommand = new OpenCommand(this, FileType.ImageFile);
+                return _openImageCommand;
             }
         }
-        private OpenCommand _openCommand;
+        private OpenCommand _openImageCommand;
+        public OpenCommand OpenResizeWorkSetCmd
+        {
+            get
+            {
+                if (_openResizeWorkSetCmd == null)
+                    _openResizeWorkSetCmd = new OpenCommand(this, FileType.ResizeWorkSet);
+                return _openResizeWorkSetCmd;
+            }
+        }
+        private OpenCommand _openResizeWorkSetCmd;
+
 
         public OptimizeTargetCommand OptimizeTargetImage
         {
@@ -85,6 +111,20 @@ namespace IconFitter.ViewModels
             }
         }
         private ResizeCommand _resizeCmd;
+
+
+
+        public SaveResizeWorks SaveResizeWorks
+        {
+            set { _saveResizeWorks = value; }
+            get
+            {
+                if (_saveResizeWorks == null)
+                    _saveResizeWorks = new SaveResizeWorks(this);
+                return _saveResizeWorks;
+            }
+        }
+        private SaveResizeWorks _saveResizeWorks;
 
 
 

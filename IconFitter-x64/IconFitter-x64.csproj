@@ -85,6 +85,9 @@
     <Compile Include="Behaviors\TextBoxEnterNavg.cs" />
     <Compile Include="Behaviors\TextBoxSelectAll.cs" />
     <Compile Include="Commands\AppendResizeCommand.cs" />
+    <Compile Include="Commands\ExecuteResizeWorks.cs" />
+    <Compile Include="Commands\ImgWorkSetCommand.cs" />
+    <Compile Include="Commands\SaveResizeWorks.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -92,12 +95,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\AbstractCommand.cs" />
-    <Compile Include="Commands\AbstractImgWorkCommand.cs" />
+    <Compile Include="Commands\ImgWorkCommand.cs" />
     <Compile Include="Commands\MakeWin32Icon.cs" />
     <Compile Include="Commands\OpenCommand.cs" />
     <Compile Include="Commands\OptimizeTargetCommand.cs" />
     <Compile Include="Commands\ResizeCommand.cs" />
     <Compile Include="Models\AppSettings.cs" />
+    <Compile Include="Models\Files.cs" />
     <Compile Include="Models\WindowPosition.cs" />
     <Compile Include="ViewModels\IconFitterVM.cmd.cs" />
     <Compile Include="ViewModels\IconFitterVM.cs" />
